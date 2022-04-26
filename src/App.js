@@ -1,11 +1,12 @@
 import './App.css';
 import Palette from './components/Palette';
-import seedColors from './seedColors';
+import { generatePalette } from './helpers/colorHelpers';
+import colorsData from './helpers/colorsData';
 
 function App() {
   return (
     <div>
-      <Palette {...seedColors[2]} />
+      <Palette palette={generatePalette(colorsData[2])} />
     </div>
   );
 }
