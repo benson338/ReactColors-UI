@@ -1,12 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Grow,
-  IconButton,
-  MenuItem,
-  Select,
-  Slide,
-  Snackbar,
-} from '@mui/material';
+import React, { useState } from 'react';
+import { IconButton, MenuItem, Select, Slide, Snackbar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
@@ -20,24 +13,23 @@ const Navbar = () => {
     changeFormat,
   } = usePaletteContext();
 
-  const [open, setOpen] = useState(false);
+  const [snackstate, setSnackstate] = useState({
+    open: false,
+    Transition: undefined,
+  });
+
+  const SlideTransition = (props) => <Slide {...props} direction="up" />;
 
   const changeSliderLevel = (e) => {
-    // console.log(e);
     // default param: slider value
     changeLevel(e);
   };
-  const handleChange = (e) => {
+  const handleFormatChange = (e) => {
     changeFormat(e.target.value);
-    setOpen(true);
+    setSnackstate({ open: true, Transition: SlideTransition });
+    // Setting transition as state & providing new Slide is neccessary for getting sliding snackbar with state change
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const Transition = (props) => {
-    console.log(props);
-    return <Slide {...props} direction="up" />;
-  };
+  const handleClose = () => setSnackstate({ ...snackstate, open: false });
 
   return (
     <header className="Navbar">
@@ -69,18 +61,17 @@ const Navbar = () => {
         </div>
       </div>
       <div className="select-container">
-        <Select value={format} onChange={handleChange}>
+        <Select value={format} onChange={handleFormatChange}>
           <MenuItem value="hex">HEX - #FFFFFF</MenuItem>
           <MenuItem value="rgb">RGB - rgb(255, 255, 255)</MenuItem>
           <MenuItem value="rgba">RGBA - rgba(255, 255, 255, 1)</MenuItem>
         </Select>
       </div>
-      {/* <Button onClick={handleClick}>Open simple snackbar</Button> */}
       <Snackbar
-        open={open}
-        autoHideDuration={2750}
+        open={snackstate.open}
+        autoHideDuration={2900}
         onClose={handleClose}
-        TransitionComponent={Transition}
+        TransitionComponent={snackstate.Transition}
         message="Format Changed👍"
         action={
           <IconButton
