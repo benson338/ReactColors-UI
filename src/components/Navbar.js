@@ -1,5 +1,13 @@
-import React from 'react';
-import { MenuItem, Select } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import {
+  Grow,
+  IconButton,
+  MenuItem,
+  Select,
+  Slide,
+  Snackbar,
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import '../styles/Navbar.css';
@@ -11,6 +19,9 @@ const Navbar = () => {
     changeLevel,
     changeFormat,
   } = usePaletteContext();
+
+  const [open, setOpen] = useState(false);
+
   const changeSliderLevel = (e) => {
     // console.log(e);
     // default param: slider value
@@ -18,6 +29,14 @@ const Navbar = () => {
   };
   const handleChange = (e) => {
     changeFormat(e.target.value);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const Transition = (props) => {
+    console.log(props);
+    return <Slide {...props} direction="up" />;
   };
 
   return (
@@ -56,6 +75,24 @@ const Navbar = () => {
           <MenuItem value="rgba">RGBA - rgba(255, 255, 255, 1)</MenuItem>
         </Select>
       </div>
+      {/* <Button onClick={handleClick}>Open simple snackbar</Button> */}
+      <Snackbar
+        open={open}
+        autoHideDuration={2750}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+        message="Format Changed👍"
+        action={
+          <IconButton
+            onClick={handleClose}
+            color="inherit"
+            key="close"
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
+        }
+      />
     </header>
   );
 };

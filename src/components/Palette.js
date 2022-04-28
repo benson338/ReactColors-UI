@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import { usePaletteContext } from '../contexts/PaletteContext';
 
 const Palette = ({ palette }) => {
-  console.log(palette);
+  // console.log(palette);
   const {
     state: { level, format },
   } = usePaletteContext();
