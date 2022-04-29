@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import { IconButton, MenuItem, Select, Slide, Snackbar } from '@mui/material';
+import {
+  FormControl,
+  IconButton,
+  MenuItem,
+  Select,
+  Slide,
+  Snackbar,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import '../styles/Navbar.css';
 import { usePaletteContext } from '../contexts/PaletteContext';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const {
@@ -34,7 +42,7 @@ const Navbar = () => {
   return (
     <header className="Navbar">
       <div className="logo">
-        <a href="#">color picker</a>
+        <Link to="/">⬅ Back</Link>
       </div>
       <div className="slider-container">
         <span>Level: {level}</span>
@@ -61,18 +69,20 @@ const Navbar = () => {
         </div>
       </div>
       <div className="select-container">
-        <Select value={format} onChange={handleFormatChange}>
-          <MenuItem value="hex">HEX - #FFFFFF</MenuItem>
-          <MenuItem value="rgb">RGB - rgb(255, 255, 255)</MenuItem>
-          <MenuItem value="rgba">RGBA - rgba(255, 255, 255, 1)</MenuItem>
-        </Select>
+        <FormControl variant="standard">
+          <Select value={format} onChange={handleFormatChange}>
+            <MenuItem value="hex">HEX - #FFFFFF</MenuItem>
+            <MenuItem value="rgb">RGB - rgb(255, 255, 255)</MenuItem>
+            <MenuItem value="rgba">RGBA - rgba(255, 255, 255, 1)</MenuItem>
+          </Select>
+        </FormControl>
       </div>
       <Snackbar
         open={snackstate.open}
         autoHideDuration={2900}
         onClose={handleClose}
         TransitionComponent={snackstate.Transition}
-        message="Format Changed👍"
+        message={`Format Changed To ${format.toUpperCase()}👍`}
         action={
           <IconButton
             onClick={handleClose}
