@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 // const RootWithObject = styled.div({
 //   backgroundColor: 'white',
@@ -53,7 +54,11 @@ const Root = styled.div`
   }
 `;
 
-function MiniPalette({ paletteName, emoji, colors }) {
+function MiniPalette({ paletteName, emoji, colors, id }) {
+  let navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/palette/${id}`);
+  };
   const miniColorBoxes = colors.map((color) => (
     <div
       className="mini-color"
@@ -63,7 +68,7 @@ function MiniPalette({ paletteName, emoji, colors }) {
   ));
 
   return (
-    <Root>
+    <Root onClick={handleClick}>
       <div className="colors">{miniColorBoxes}</div>
       <h5 className="title">
         {paletteName} <span className="emoji">{emoji}</span>

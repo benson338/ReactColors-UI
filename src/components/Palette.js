@@ -6,13 +6,21 @@ import { usePaletteContext } from '../contexts/PaletteContext';
 
 const Palette = ({ palette }) => {
   // console.log(palette);
+  // generated palette
   const {
     state: { level, format },
   } = usePaletteContext();
 
-  const { colors, paletteName, emoji } = palette;
+  const { colors, paletteName, emoji, id } = palette;
   const colorBoxes = colors[level].map((color) => (
-    <ColorBox background={color[format]} name={color.name} key={color.id} />
+    <ColorBox
+      background={color[format]}
+      name={color.name}
+      key={color.id}
+      // colorId={color.id}
+      // paletteId={id}
+      moreUrl={`/palette/${id}/${color.id}`}
+    />
   ));
 
   return (
