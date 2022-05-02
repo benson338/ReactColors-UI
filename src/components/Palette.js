@@ -20,6 +20,7 @@ const Palette = ({ palette }) => {
       // colorId={color.id}
       // paletteId={id}
       moreUrl={`/palette/${id}/${color.id}`}
+      showLink
     />
   ));
 

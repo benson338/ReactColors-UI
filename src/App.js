@@ -15,6 +15,11 @@ function App() {
     const palette = generatePalette(findPalette(id));
     return <Palette palette={palette} />;
   };
+  const SinglePaletteWrapper = () => {
+    let { paletteId, colorId } = useParams();
+    const palette = generatePalette(findPalette(paletteId));
+    return <SingleColorPalette palette={palette} colorId={colorId} />;
+  };
 
   return (
     <Routes>
@@ -22,7 +27,7 @@ function App() {
       <Route path="/palette/:id" element={<PaletteWrapper />} />
       <Route
         path="/palette/:paletteId/:colorId"
-        element={<SingleColorPalette />}
+        element={<SinglePaletteWrapper />}
       />
     </Routes>
   );

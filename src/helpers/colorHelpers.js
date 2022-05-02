@@ -78,7 +78,7 @@ function getRange(hexColor) {
     // chroma(hexColor).darken(1.4).hex(),
     chroma(hexColor).darken(1.5).hex(),
     hexColor,
-    chroma(hexColor).brighten(2).hex(),
+    chroma(hexColor).brighten(2.5).hex(),
     // endColor,
   ];
   // chroma(color) => color

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import MiniPalette from './MiniPalette';
 import styled from '@emotion/styled';
 
