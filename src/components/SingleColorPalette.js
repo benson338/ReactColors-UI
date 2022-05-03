@@ -33,7 +33,7 @@ function SingleColorPalette({ palette, colorId }) {
   ));
 
   return (
-    <div className="Palette">
+    <div className="SingleColorPalette Palette">
       <Navbar format={format} changeFormat={changeFormat} hideSlider />
       <div className="Palette-colors">{colorBoxes}</div>
       <PaletteFooter paletteName={paletteName} emoji={emoji} />

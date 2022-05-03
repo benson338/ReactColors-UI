@@ -8,6 +8,9 @@
   margin-bottom: -4px;
   text-transform: uppercase;
 }
+.SingleColorPalette .Colorbox {
+  height: 50%;
+}
 
 .copy-button {
   width: 100px;
@@ -43,6 +46,13 @@
   color: black;
   letter-spacing: 1px;
   font-size: 12px;
+}
+.box-content .light-color {
+  color: rgb(155, 155, 155);
+}
+
+.Colorbox .dark-color {
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .see-more {

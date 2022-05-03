@@ -60,7 +60,7 @@ const Navbar = ({ level, format, changeLevel, changeFormat, hideSlider }) => {
           </div>
         </div>
       )}
-      {/* {hideSlider && <p>Pick a Color</p>} */}
+      {hideSlider && <span className="Navbar-span">Pick the Right One🤞</span>}
       <div className="select-container">
         <FormControl variant="standard">
           <Select value={format} onChange={handleFormatChange}>

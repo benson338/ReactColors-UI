@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 import '../styles/ColorBox.css';
+import chroma from 'chroma-js';
 
 const ColorBox = ({ background, name, moreUrl, showLink }) => {
   const [copy, setCopy] = useState(false);
   const changeCopyState = () => {
     setCopy(true);
   };
+  const isDarkColor = chroma(background).luminance() <= 0.1;
+  const isLightColor = chroma(background).luminance() >= 0.65;
 
   useEffect(() => {
     setTimeout(() => {
@@ -24,13 +27,17 @@ const ColorBox = ({ background, name, moreUrl, showLink }) => {
         />
         <div className={`copy-msg ${copy && 'show'}`}>
           <h1>Copied!</h1>
-          <p>{background}</p>
+          <p className={isLightColor && 'dark-color'}>{background}</p>
         </div>
         <div className="copy-container">
           <div className="box-content">
-            <span>{name}</span>
+            <span className={isDarkColor && 'light-color'}>
+              {name} {chroma(background).luminance()}
+            </span>
           </div>
-          <button className="copy-button">Copy</button>
+          <button className={`copy-button ${isLightColor && 'dark-color'}`}>
+            Copy
+          </button>
         </div>
         {showLink && (
           <Link
@@ -38,7 +45,9 @@ const ColorBox = ({ background, name, moreUrl, showLink }) => {
             to={moreUrl}
             onClick={(e) => e.stopPropagation()}
           >
-            <span className="see-more">More</span>
+            <span className={`see-more ${isLightColor && 'dark-color'}`}>
+              More
+            </span>
           </Link>
         )}
       </div>
