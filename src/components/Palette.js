@@ -25,7 +25,7 @@ const Palette = ({ palette }) => {
       name={color.name}
       key={color.id}
       moreUrl={`/palette/${id}/${color.id}`}
-      showLink
+      FullPalette
       // colorId={color.id}
       // paletteId={id}
     />
