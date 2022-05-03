@@ -1,5 +1,6 @@
 import React from 'react';
 import ColorBox from './ColorBox';
+import Navbar from './Navbar';
 
 function SingleColorPalette({ palette, colorId }) {
   // console.log(colorId); => is same as color name
@@ -29,7 +30,7 @@ function SingleColorPalette({ palette, colorId }) {
 
   return (
     <div className="Palette">
-      <h1>SingleColorPalette</h1>
+      <Navbar hideLevel />
       <div className="Palette-colors">{colorBoxes}</div>
     </div>
   );

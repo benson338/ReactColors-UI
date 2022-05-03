@@ -12,14 +12,12 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import '../styles/Navbar.css';
 import { usePaletteContext } from '../contexts/PaletteContext';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
-  const {
-    state: { level, format },
-    changeLevel,
-    changeFormat,
-  } = usePaletteContext();
+const Navbar = ({ level, format, changeLevel, hideLevel }) => {
+  const { changeFormat } = usePaletteContext();
+
+  const navigate = useNavigate();
 
   const [snackstate, setSnackstate] = useState({
     open: false,
@@ -41,33 +39,36 @@ const Navbar = () => {
 
   return (
     <header className="Navbar">
-      <div className="logo">
-        <Link to="/">⬅ Back</Link>
+      <div className="logo" onClick={() => navigate(-1)}>
+        <span>⬅ Back</span>
       </div>
-      <div className="slider-container">
-        <span>Level: {level}</span>
-        <div className="slider">
-          <Slider
-            defaultValue={level}
-            min={100}
-            max={900}
-            step={100}
-            trackStyle={{ backgroundColor: 'transparent' }}
-            railStyle={{ height: '8px' }}
-            handleStyle={{
-              background: 'green',
-              outline: 'none',
-              border: '2px solid green',
-              boxShadow: 'none',
-              width: '13px',
-              height: '13px',
-              marginTop: '-3.25px',
-              marginLeft: '-2px',
-            }}
-            onChange={changeSliderLevel}
-          />
+      {!hideLevel && (
+        <div className="slider-container">
+          <span>Level: {level}</span>
+          <div className="slider">
+            <Slider
+              defaultValue={level}
+              min={100}
+              max={900}
+              step={100}
+              trackStyle={{ backgroundColor: 'transparent' }}
+              railStyle={{ height: '8px' }}
+              handleStyle={{
+                background: 'green',
+                outline: 'none',
+                border: '2px solid green',
+                boxShadow: 'none',
+                width: '13px',
+                height: '13px',
+                marginTop: '-3.25px',
+                marginLeft: '-2px',
+              }}
+              onChange={changeSliderLevel}
+            />
+          </div>
         </div>
-      </div>
+      )}
+      {/* {hideLevel && <p>Pick a Color</p>} */}
       <div className="select-container">
         <FormControl variant="standard">
           <Select value={format} onChange={handleFormatChange}>

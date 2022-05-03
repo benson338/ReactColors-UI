@@ -9,6 +9,7 @@ const Palette = ({ palette }) => {
   // generated palette
   const {
     state: { level, format },
+    changeLevel,
   } = usePaletteContext();
 
   const { colors, paletteName, emoji, id } = palette;
@@ -26,7 +27,7 @@ const Palette = ({ palette }) => {
 
   return (
     <div className="Palette">
-      <Navbar />
+      <Navbar level={level} format={format} hideLevel={false} />
       <div className="Palette-colors">{colorBoxes}</div>
       <footer className="Palette-footer">
         {paletteName}
