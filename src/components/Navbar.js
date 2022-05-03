@@ -11,14 +11,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import '../styles/Navbar.css';
-import { usePaletteContext } from '../contexts/PaletteContext';
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = ({ level, format, changeLevel, hideLevel }) => {
-  const { changeFormat } = usePaletteContext();
-
+const Navbar = ({ level, format, changeLevel, changeFormat, hideSlider }) => {
   const navigate = useNavigate();
-
   const [snackstate, setSnackstate] = useState({
     open: false,
     Transition: undefined,
@@ -26,10 +22,6 @@ const Navbar = ({ level, format, changeLevel, hideLevel }) => {
 
   const SlideTransition = (props) => <Slide {...props} direction="up" />;
 
-  const changeSliderLevel = (e) => {
-    // default param: slider value
-    changeLevel(e);
-  };
   const handleFormatChange = (e) => {
     changeFormat(e.target.value);
     setSnackstate({ open: true, Transition: SlideTransition });
@@ -42,7 +34,7 @@ const Navbar = ({ level, format, changeLevel, hideLevel }) => {
       <div className="logo" onClick={() => navigate(-1)}>
         <span>⬅ Back</span>
       </div>
-      {!hideLevel && (
+      {!hideSlider && (
         <div className="slider-container">
           <span>Level: {level}</span>
           <div className="slider">
@@ -63,12 +55,12 @@ const Navbar = ({ level, format, changeLevel, hideLevel }) => {
                 marginTop: '-3.25px',
                 marginLeft: '-2px',
               }}
-              onChange={changeSliderLevel}
+              onChange={changeLevel}
             />
           </div>
         </div>
       )}
-      {/* {hideLevel && <p>Pick a Color</p>} */}
+      {/* {hideSlider && <p>Pick a Color</p>} */}
       <div className="select-container">
         <FormControl variant="standard">
           <Select value={format} onChange={handleFormatChange}>
