@@ -12,8 +12,8 @@ const Root = styled.div`
   text-transform: uppercase;
 `;
 
-function DraggableColorbox({ color }) {
-  return <Root color={color}>{color}</Root>;
+function DraggableColorbox({ color, name }) {
+  return <Root color={color}>{name}</Root>;
 }
 
 export default DraggableColorbox;
