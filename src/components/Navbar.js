@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   FormControl,
   IconButton,
@@ -10,7 +10,8 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import '../styles/Navbar.css';
+// ** for overriding with inline css
+import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ level, format, changeLevel, changeFormat, hideSlider }) => {
@@ -30,12 +31,12 @@ const Navbar = ({ level, format, changeLevel, changeFormat, hideSlider }) => {
   const handleClose = () => setSnackstate({ ...snackstate, open: false });
 
   return (
-    <header className="Navbar">
+    <StyledNavbar>
       <div className="logo" onClick={() => navigate(-1)}>
         <span>⬅ Back</span>
       </div>
       {!hideSlider && (
-        <div className="slider-container">
+        <SliderContainer>
           <span>Level: {level}</span>
           <div className="slider">
             <Slider
@@ -58,10 +59,10 @@ const Navbar = ({ level, format, changeLevel, changeFormat, hideSlider }) => {
               onChange={changeLevel}
             />
           </div>
-        </div>
+        </SliderContainer>
       )}
       {hideSlider && <span className="Navbar-span">Pick the Right One🤞</span>}
-      <div className="select-container">
+      <SelectContainer>
         <FormControl variant="standard">
           <Select value={format} onChange={handleFormatChange}>
             <MenuItem value="hex">HEX - #FFFFFF</MenuItem>
@@ -69,7 +70,7 @@ const Navbar = ({ level, format, changeLevel, changeFormat, hideSlider }) => {
             <MenuItem value="rgba">RGBA - rgba(255, 255, 255, 1)</MenuItem>
           </Select>
         </FormControl>
-      </div>
+      </SelectContainer>
       <Snackbar
         open={snackstate.open}
         autoHideDuration={2900}
@@ -87,8 +88,54 @@ const Navbar = ({ level, format, changeLevel, changeFormat, hideSlider }) => {
           </IconButton>
         }
       />
-    </header>
+    </StyledNavbar>
   );
 };
+
+const StyledNavbar = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* height: 6vh; */
+  height: 7vh;
+
+  .logo {
+    margin-right: 15px;
+    padding: 0 1rem;
+    font-size: 1.1rem;
+    background: #eceff1;
+    font-family: 'Segoe UI';
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .Navbar-span {
+    margin-right: 15px;
+    padding: 0 2rem;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI';
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const SliderContainer = styled.div`
+  .slider {
+    width: 340px;
+    margin: 0 10px;
+    display: inline-block;
+  }
+`;
+
+const SelectContainer = styled.div`
+  margin-left: auto;
+  margin-right: 1rem;
+`;
 
 export default Navbar;

@@ -1,6 +1,4 @@
-import React from 'react';
 import ColorBox from './ColorBox';
-// import '../styles/Palette.css';
 import Navbar from './Navbar';
 import PaletteFooter from './PaletteFooter';
 import { usePaletteContext } from '../contexts/PaletteContext';
@@ -55,20 +53,6 @@ const StyledComponent = styled.div`
 
   .Palette-colors {
     height: 88vh;
-  }
-
-  .Palette-footer {
-    background: white;
-    height: 5vh;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-
-    .emoji {
-      font-size: 1.2rem;
-      margin: 0 1rem;
-      margin-top: -4px;
-    }
   }
 `;
 
