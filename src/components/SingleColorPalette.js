@@ -3,6 +3,7 @@ import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import { usePaletteContext } from '../contexts/PaletteContext';
 import PaletteFooter from './PaletteFooter';
+import styled from '@emotion/styled';
 
 function SingleColorPalette({ palette, colorId }) {
   // console.log(colorId); => is same as color name
@@ -33,12 +34,37 @@ function SingleColorPalette({ palette, colorId }) {
   ));
 
   return (
-    <div className="SingleColorPalette Palette">
+    <StyledComponent>
       <Navbar format={format} changeFormat={changeFormat} hideSlider />
       <div className="Palette-colors">{colorBoxes}</div>
       <PaletteFooter paletteName={paletteName} emoji={emoji} />
-    </div>
+    </StyledComponent>
   );
 }
+
+const StyledComponent = styled.div`
+  height: 100vh;
+  /* display: flex;
+  flex-direction: column; */
+  overflow: hidden;
+
+  .Palette-colors {
+    height: 88vh;
+  }
+
+  .Palette-footer {
+    background: white;
+    height: 5vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .emoji {
+      font-size: 1.2rem;
+      margin: 0 1rem;
+      margin-top: -4px;
+    }
+  }
+`;
 
 export default SingleColorPalette;
