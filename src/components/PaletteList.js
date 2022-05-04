@@ -1,5 +1,6 @@
 import MiniPalette from './MiniPalette';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 function PaletteList({ palettes }) {
   return (
@@ -7,6 +8,7 @@ function PaletteList({ palettes }) {
       <Container>
         <nav className="nav">
           <h1>React Colors UI</h1>
+          <Link to="/palette/new">Create Palette</Link>
         </nav>
         <div className="palettes">
           {palettes.map((palette) => (
@@ -36,8 +38,15 @@ const Container = styled.div`
   .nav {
     display: flex;
     width: 100%;
-    jusity-content: space-between;
+    justify-content: space-between;
+    align-items: center;
     color: white;
+
+    a {
+      color: white;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
   }
 
   .palettes {

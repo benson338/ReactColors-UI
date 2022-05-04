@@ -1,5 +1,6 @@
 import { Route, Routes, useParams } from 'react-router-dom';
 import './App.css';
+import NewPaletteForm from './components/NewPaletteForm';
 import Palette from './components/Palette';
 import PaletteList from './components/PaletteList';
 import SingleColorPalette from './components/SingleColorPalette';
@@ -29,6 +30,7 @@ function App() {
         path="/palette/:paletteId/:colorId"
         element={<SinglePaletteWrapper />}
       />
+      <Route path="/palette/new" element={<NewPaletteForm />} />
     </Routes>
   );
 }
