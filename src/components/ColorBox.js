@@ -57,9 +57,9 @@ function ColorBox({ background, name, moreUrl, FullPalette }) {
 }
 
 const StyledColorBox = styled.div`
-  width: 20%;
   background: ${(props) => props.background};
   height: ${(props) => (props.FullPalette ? '25%' : '50%')};
+  width: 20%;
   margin: 0 auto;
   display: inline-block;
   position: relative;
