@@ -1,13 +1,28 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 
-// const RootWithObject = styled.div({
-//   backgroundColor: 'white',
-//   position: 'relative',
-//   '& .title': {
-//     color: 'pink',
-//   },
-// });
+function MiniPalette({ paletteName, emoji, colors, id }) {
+  let navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/palette/${id}`);
+  };
+  const miniColorBoxes = colors.map((color) => (
+    <div
+      className="mini-color"
+      style={{ backgroundColor: color.color }}
+      key={color.name}
+    />
+  ));
+
+  return (
+    <Root onClick={handleClick}>
+      <div className="colors">{miniColorBoxes}</div>
+      <h5 className="title">
+        {paletteName} <span className="emoji">{emoji}</span>
+      </h5>
+    </Root>
+  );
+}
 
 const Root = styled.div`
   background: white;
@@ -18,7 +33,7 @@ const Root = styled.div`
   // overflow: hidden;
   :hover {
     cursor: pointer;
-    background: pink;
+    background: rgba(255, 255, 255, 0.9);
   }
 
   .colors {
@@ -53,28 +68,5 @@ const Root = styled.div`
     }
   }
 `;
-
-function MiniPalette({ paletteName, emoji, colors, id }) {
-  let navigate = useNavigate();
-  const handleClick = () => {
-    navigate(`/palette/${id}`);
-  };
-  const miniColorBoxes = colors.map((color) => (
-    <div
-      className="mini-color"
-      style={{ backgroundColor: color.color }}
-      key={color.name}
-    />
-  ));
-
-  return (
-    <Root onClick={handleClick}>
-      <div className="colors">{miniColorBoxes}</div>
-      <h5 className="title">
-        {paletteName} <span className="emoji">{emoji}</span>
-      </h5>
-    </Root>
-  );
-}
 
 export default MiniPalette;
