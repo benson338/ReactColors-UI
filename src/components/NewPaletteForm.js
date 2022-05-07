@@ -10,7 +10,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ChromePicker } from 'react-color';
 import DraggableColorbox from './DraggableColorbox';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
@@ -19,16 +19,19 @@ import { useGlobalContext } from '../contexts/GlobalContext';
 
 function NewPaletteForm() {
   // const theme = useTheme();
-  const [state, setState] = useState({
-    open: false,
-    currentColor: 'blue',
-    newColorName: '',
-    newPaletteName: '',
-    colors: [{ color: 'blue', name: 'blue' }],
-  });
-  const { open, currentColor, colors, newColorName, newPaletteName } = state;
+  // const [state, setState] = useState({
+  //   open: false,
+  //   currentColor: 'blue',
+  //   newColorName: '',
+  //   newPaletteName: '',
+  //   colors: [{ color: 'blue', name: 'blue' }],
+  // });
 
-  const { palettes, setPalettes } = useGlobalContext();
+  const { palettes, setPalettes, newPaletteState, dispatch } =
+    useGlobalContext();
+
+  const { open, currentColor, colors, newColorName, newPaletteName } =
+    newPaletteState;
 
   let navigate = useNavigate();
 
@@ -48,43 +51,43 @@ function NewPaletteForm() {
     });
   }, [colors, currentColor, palettes]);
 
-  const handleDrawerOpen = () => {
-    setState((st) => ({ ...st, open: true }));
-  };
+  // const handleDrawerOpen = () => {
+  //   setState((st) => ({ ...st, open: true }));
+  // };
 
-  const handleDrawerClose = () => {
-    setState((st) => ({ ...st, open: false }));
-  };
+  // const handleDrawerClose = () => {
+  //   setState((st) => ({ ...st, open: false }));
+  // };
 
-  const updateCurrentColor = (color) => {
-    // console.log(color);
-    setState((st) => ({ ...st, currentColor: color.hex }));
-  };
+  // const updateCurrentColor = (color) => {
+  //   // console.log(color);
+  //   setState((st) => ({ ...st, currentColor: color.hex }));
+  // };
 
-  const addNewColor = () => {
-    const newColor = {
-      color: state.currentColor,
-      name: state.newColorName,
-    };
-    setState((st) => ({
-      ...st,
-      colors: [...st.colors, newColor],
-      newColorName: '',
-    }));
-  };
+  // const addNewColor = () => {
+  //   const newColor = {
+  //     color: state.currentColor,
+  //     name: state.newColorName,
+  //   };
+  //   setState((st) => ({
+  //     ...st,
+  //     colors: [...st.colors, newColor],
+  //     newColorName: '',
+  //   }));
+  // };
 
-  function handleChange(e) {
-    setState((st) => ({ ...st, [e.target.name]: e.target.value }));
-  }
+  // function handleChange(e) {
+  //   setState((st) => ({ ...st, [e.target.name]: e.target.value }));
+  // }
 
   const handleSubmit = () => {
-    let name = newPaletteName;
     const newPalette = {
-      paletteName: name,
-      id: name.toLowerCase().replace(/ /g, '-'),
+      paletteName: newPaletteName,
+      id: newPaletteName.toLowerCase().replace(/ /g, '-'),
       colors: colors,
     };
     setPalettes((st) => [...st, newPalette]);
+    dispatch({ type: 'CLEAR' });
     navigate('/');
   };
 
@@ -96,7 +99,7 @@ function NewPaletteForm() {
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={() => dispatch({ type: 'DRAWER-OPEN' })}
             edge="start"
             sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
@@ -110,7 +113,7 @@ function NewPaletteForm() {
               labe="Palette Name"
               name="newPaletteName"
               value={newPaletteName}
-              onChange={handleChange}
+              onChange={(e) => dispatch({ type: 'HANDLE-CHANGE', payload: e })}
               validators={['required', 'isPaletteNameUnique']}
               errorMessages={['Enter Palette Name', 'Name already used']}
             />
@@ -134,7 +137,7 @@ function NewPaletteForm() {
         open={open}
       >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={() => dispatch({ type: 'DRAWER-CLOSE' })}>
             <ChevronLeftIcon />
           </IconButton>
         </DrawerHeader>
@@ -148,15 +151,17 @@ function NewPaletteForm() {
             Random Color
           </Button>
         </div>
-        <ChromePicker color={currentColor} onChange={updateCurrentColor} />
-        <ValidatorForm
-          onSubmit={addNewColor}
-          onError={(errors) => console.log(errors)}
-        >
+        <ChromePicker
+          color={currentColor}
+          onChange={(e) =>
+            dispatch({ type: 'UPDATE-CURRENT-COLOR', payload: e })
+          }
+        />
+        <ValidatorForm onSubmit={() => dispatch({ type: 'ADD-NEW-COLOR' })}>
           <TextValidator
             value={newColorName}
             name="newColorName"
-            onChange={handleChange}
+            onChange={(e) => dispatch({ type: 'HANDLE-CHANGE', payload: e })}
             validators={['required', 'isColorNameUnique', 'isColorUnique']}
             errorMessages={[
               'Enter a color name',
