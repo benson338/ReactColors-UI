@@ -27,13 +27,9 @@ function App() {
     return <SingleColorPalette palette={palette} colorId={colorId} />;
   };
 
-  // const savePalette = (newPalette) => {
-  //   console.log(newPalette);
-  // };
-
   return (
     <Routes>
-      <Route path="/" element={<PaletteList palettes={palettes} />} />
+      <Route path="/" element={<PaletteList />} />
       <Route path="/palette/:id" element={<PaletteWrapper />} />
       <Route
         path="/palette/:paletteId/:colorId"

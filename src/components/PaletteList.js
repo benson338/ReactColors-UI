@@ -1,8 +1,11 @@
 import MiniPalette from './MiniPalette';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import { useGlobalContext } from '../contexts/GlobalContext';
 
-function PaletteList({ palettes }) {
+function PaletteList() {
+  const { palettes } = useGlobalContext();
+
   return (
     <Root>
       <Container>
