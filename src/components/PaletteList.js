@@ -25,6 +25,7 @@ const Root = styled.div`
   height: 100vh;
   display: flex;
   align-items: flex-start;
+  overflow: auto;
   justify-content: center;
 `;
 
