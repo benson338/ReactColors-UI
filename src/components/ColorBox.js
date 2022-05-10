@@ -64,7 +64,7 @@ const StyledColorBox = styled.div`
   display: inline-block;
   position: relative;
   cursor: pointer;
-  margin-bottom: -4px;
+  margin-bottom: -4.5px;
   text-transform: uppercase;
 
   .copy-button {

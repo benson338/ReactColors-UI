@@ -12,27 +12,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useEffect } from 'react';
 import { ChromePicker } from 'react-color';
-import DraggableColorbox from './DraggableColorbox';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../contexts/GlobalContext';
+import DndComponent from './DndComponent';
 
 function NewPaletteForm() {
-  // const theme = useTheme();
-  // const [state, setState] = useState({
-  //   open: false,
-  //   currentColor: 'blue',
-  //   newColorName: '',
-  //   newPaletteName: '',
-  //   colors: [{ color: 'blue', name: 'blue' }],
-  // });
-
   const { palettes, setPalettes, newPaletteState, dispatch } =
     useGlobalContext();
-
   const { open, currentColor, colors, newColorName, newPaletteName } =
     newPaletteState;
-
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -50,35 +39,6 @@ function NewPaletteForm() {
       );
     });
   }, [colors, currentColor, palettes]);
-
-  // const handleDrawerOpen = () => {
-  //   setState((st) => ({ ...st, open: true }));
-  // };
-
-  // const handleDrawerClose = () => {
-  //   setState((st) => ({ ...st, open: false }));
-  // };
-
-  // const updateCurrentColor = (color) => {
-  //   // console.log(color);
-  //   setState((st) => ({ ...st, currentColor: color.hex }));
-  // };
-
-  // const addNewColor = () => {
-  //   const newColor = {
-  //     color: state.currentColor,
-  //     name: state.newColorName,
-  //   };
-  //   setState((st) => ({
-  //     ...st,
-  //     colors: [...st.colors, newColor],
-  //     newColorName: '',
-  //   }));
-  // };
-
-  // function handleChange(e) {
-  //   setState((st) => ({ ...st, [e.target.name]: e.target.value }));
-  // }
 
   const handleSubmit = () => {
     const newPalette = {
@@ -108,7 +68,7 @@ function NewPaletteForm() {
           <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
-          <ValidatorForm onSubmit={handleSubmit}>
+          <ValidatorForm onSubmit={handleSubmit} style={{ display: 'flex' }}>
             <TextValidator
               labe="Palette Name"
               name="newPaletteName"
@@ -181,9 +141,7 @@ function NewPaletteForm() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        {colors.map((color) => (
-          <DraggableColorbox color={color.color} name={color.name} />
-        ))}
+        <DndComponent />
       </Main>
     </Box>
   );

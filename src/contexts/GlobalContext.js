@@ -2,20 +2,18 @@ import { useState, createContext, useContext, useReducer } from 'react';
 import reducer from './Reducer';
 import colorsData from '../helpers/colorsData';
 
-// palette state
-// NewPaletteForm state
-
 const GlobalContext = createContext();
 
 const GlobalContextProvider = ({ children }) => {
+  // palettes state
   const [palettes, setPalettes] = useState(colorsData);
-
+  // NewPaletteForm state
   const [newPaletteState, dispatch] = useReducer(reducer, {
     open: false,
     currentColor: 'blue',
     newColorName: '',
     newPaletteName: '',
-    colors: [{ color: 'blue', name: 'blue' }],
+    colors: [{ color: 'blue', name: 'blue', id: 123 }],
   });
 
   return (

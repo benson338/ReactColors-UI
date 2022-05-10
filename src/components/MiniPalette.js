@@ -49,7 +49,7 @@ const Root = styled.div`
       display: inline-block;
       margin: 0 auto;
       position: relative;
-      margin-bottom: -4px;
+      margin-bottom: -4.5px;
     }
   }
 
