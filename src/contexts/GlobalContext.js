@@ -1,6 +1,7 @@
 import { useState, createContext, useContext, useReducer } from 'react';
 import reducer from './Reducer';
 import colorsData from '../helpers/colorsData';
+import { v4 as uuidv4 } from 'uuid';
 
 const GlobalContext = createContext();
 
@@ -13,7 +14,11 @@ const GlobalContextProvider = ({ children }) => {
     currentColor: 'blue',
     newColorName: '',
     newPaletteName: '',
-    colors: [{ color: 'blue', name: 'blue', id: 123 }],
+    colors: [
+      { color: 'blue', name: 'blue', id: uuidv4() },
+      { color: 'yellow', name: 'yellow', id: uuidv4() },
+      { color: 'green', name: 'green', id: uuidv4() },
+    ],
   });
 
   return (

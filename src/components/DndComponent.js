@@ -3,15 +3,18 @@ import { DndContext } from '@dnd-kit/core';
 import { MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import DraggableColorbox from './DraggableColorbox';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function DndComponent() {
   const {
     newPaletteState: { colors },
-    dispatch,
   } = useGlobalContext();
 
   const [items, setItems] = useState(colors);
+
+  useEffect(() => {
+    setItems(colors);
+  }, [colors]);
 
   const mouseSensor = useSensor(MouseSensor, {
     // Require the mouse to move by 7 pixels before activating
@@ -30,13 +33,14 @@ function DndComponent() {
   const sensors = useSensors(mouseSensor, touchSensor);
 
   function handleDragEnd(event) {
-    // console.log(`i'm being dragged`);
     const { active, over } = event;
 
     if (active.id !== over.id) {
       setItems((items) => {
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
+        // const oldIndex = items.indexOf(active.id);
+        // const newIndex = items.indexOf(over.id);
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
 
         return arrayMove(items, oldIndex, newIndex);
       });
@@ -45,8 +49,8 @@ function DndComponent() {
 
   return (
     <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-      <SortableContext items={colors}>
-        {colors.map((color) => (
+      <SortableContext items={items}>
+        {items.map((color) => (
           <DraggableColorbox
             color={color.color}
             name={color.name}

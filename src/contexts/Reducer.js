@@ -31,7 +31,7 @@ const reducer = (state, action) => {
         [action.payload.target.name]: action.payload.target.value,
       };
     case 'SORT-COLORS':
-      return;
+      return { ...state, colors: action.payload };
     case 'CLEAR':
       return { ...state, newPaletteName: '' };
     default:
