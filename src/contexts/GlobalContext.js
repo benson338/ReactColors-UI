@@ -14,16 +14,24 @@ const GlobalContextProvider = ({ children }) => {
     currentColor: 'blue',
     newColorName: '',
     newPaletteName: '',
-    colors: [
-      { color: 'blue', name: 'blue', id: uuidv4() },
-      { color: 'yellow', name: 'yellow', id: uuidv4() },
-      { color: 'green', name: 'green', id: uuidv4() },
-    ],
   });
+  // Colors state => should be independent
+  const [colors, setColors] = useState([
+    { color: 'blue', name: 'blue', id: uuidv4() },
+    { color: 'yellow', name: 'yellow', id: uuidv4() },
+    { color: 'green', name: 'green', id: uuidv4() },
+  ]);
 
   return (
     <GlobalContext.Provider
-      value={{ palettes, setPalettes, newPaletteState, dispatch }}
+      value={{
+        palettes,
+        setPalettes,
+        newPaletteState,
+        dispatch,
+        colors,
+        setColors,
+      }}
     >
       {children}
     </GlobalContext.Provider>

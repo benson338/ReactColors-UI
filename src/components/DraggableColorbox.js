@@ -5,7 +5,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 function DraggableColorbox({ color, name, id }) {
-  const { dispatch } = useGlobalContext();
+  const { setColors } = useGlobalContext();
 
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: id });
@@ -13,6 +13,10 @@ function DraggableColorbox({ color, name, id }) {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+  };
+
+  const deleteColor = (name) => {
+    setColors((colors) => colors.filter((color) => color.name !== name));
   };
 
   return (
@@ -27,9 +31,8 @@ function DraggableColorbox({ color, name, id }) {
         <span>{name}</span>
         <DeleteIcon
           className="deleteIcon"
-          onClick={(e) => {
-            e.stopPropagation();
-            dispatch({ type: 'DELETE-COLOR', payload: name });
+          onClick={() => {
+            deleteColor(name);
           }}
         />
       </div>

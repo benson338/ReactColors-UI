@@ -16,12 +16,18 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../contexts/GlobalContext';
 import DndComponent from './DndComponent';
+import { v4 as uuidv4 } from 'uuid';
 
 function NewPaletteForm() {
-  const { palettes, setPalettes, newPaletteState, dispatch } =
-    useGlobalContext();
-  const { open, currentColor, colors, newColorName, newPaletteName } =
-    newPaletteState;
+  const {
+    palettes,
+    setPalettes,
+    newPaletteState,
+    dispatch,
+    colors,
+    setColors,
+  } = useGlobalContext();
+  const { open, currentColor, newColorName, newPaletteName } = newPaletteState;
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -47,8 +53,25 @@ function NewPaletteForm() {
       colors: colors,
     };
     setPalettes((st) => [...st, newPalette]);
-    dispatch({ type: 'CLEAR' });
+    // clearing & intializing with random values
+    dispatch({ type: 'CLEAR-PALETTE' });
+    setColors([
+      { color: 'blue', name: 'blue', id: uuidv4() },
+      { color: 'yellow', name: 'yellow', id: uuidv4() },
+      { color: 'green', name: 'green', id: uuidv4() },
+    ]);
     navigate('/');
+  };
+
+  const addNewColor = () => {
+    const newColor = {
+      color: currentColor,
+      name: newColorName,
+      id: uuidv4(),
+    };
+
+    setColors((colors) => [...colors, newColor]);
+    dispatch({ type: 'CLEAR-COLOR-NAME' });
   };
 
   return (
@@ -117,7 +140,7 @@ function NewPaletteForm() {
             dispatch({ type: 'UPDATE-CURRENT-COLOR', payload: e })
           }
         />
-        <ValidatorForm onSubmit={() => dispatch({ type: 'ADD-NEW-COLOR' })}>
+        <ValidatorForm onSubmit={addNewColor}>
           <TextValidator
             value={newColorName}
             name="newColorName"
