@@ -2,110 +2,47 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { useEffect } from 'react';
-import { ChromePicker } from 'react-color';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../contexts/GlobalContext';
 import DndComponent from './DndComponent';
-import { v4 as uuidv4 } from 'uuid';
+import ColorPickerForm from './ColorPickerForm';
+import NewPaletteNav from './NewPaletteNav';
 
 function NewPaletteForm() {
   const {
     palettes,
-    setPalettes,
-    newPaletteState,
+    newPaletteState: { open },
     dispatch,
     colors,
     setColors,
   } = useGlobalContext();
-  const { open, currentColor, newColorName, newPaletteName } = newPaletteState;
-  let navigate = useNavigate();
 
-  useEffect(() => {
-    ValidatorForm.addValidationRule('isColorNameUnique', (value) => {
-      return colors.every(
-        ({ name }) => name.toLowerCase() !== value.toLowerCase()
-      );
-    });
-    ValidatorForm.addValidationRule('isColorUnique', (value) => {
-      return colors.every(({ color }) => color !== currentColor);
-    });
-    ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => {
-      return palettes.every(
-        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-      );
-    });
-  }, [colors, currentColor, palettes]);
+  const paletteIsFull = colors.length >= 20;
 
-  const handleSubmit = () => {
-    const newPalette = {
-      paletteName: newPaletteName,
-      id: newPaletteName.toLowerCase().replace(/ /g, '-'),
-      colors: colors,
-    };
-    setPalettes((st) => [...st, newPalette]);
-    // clearing & intializing with random values
-    dispatch({ type: 'CLEAR-PALETTE' });
-    setColors([
-      { color: 'blue', name: 'blue', id: uuidv4() },
-      { color: 'yellow', name: 'yellow', id: uuidv4() },
-      { color: 'green', name: 'green', id: uuidv4() },
-    ]);
-    navigate('/');
-  };
+  const clearColors = () => setColors([]);
 
-  const addNewColor = () => {
-    const newColor = {
-      color: currentColor,
-      name: newColorName,
-      id: uuidv4(),
-    };
+  const addRandomColor = () => {
+    const allColors = palettes.map((p) => p.colors).flat();
+    const random = Math.floor(Math.random() * allColors.length);
+    const randomColor = allColors[random];
 
-    setColors((colors) => [...colors, newColor]);
-    dispatch({ type: 'CLEAR-COLOR-NAME' });
+    const noDuplicate = colors.every((color) => color !== randomColor);
+    if (noDuplicate) {
+      setColors((colors) => [...colors, randomColor]);
+    } else {
+      addRandomColor();
+    }
   };
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} color="default">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={() => dispatch({ type: 'DRAWER-OPEN' })}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography>
-          <ValidatorForm onSubmit={handleSubmit} style={{ display: 'flex' }}>
-            <TextValidator
-              labe="Palette Name"
-              name="newPaletteName"
-              value={newPaletteName}
-              onChange={(e) => dispatch({ type: 'HANDLE-CHANGE', payload: e })}
-              validators={['required', 'isPaletteNameUnique']}
-              errorMessages={['Enter Palette Name', 'Name already used']}
-            />
-            <Button variant="contained" type="submit">
-              Save Palette
-            </Button>
-          </ValidatorForm>
-        </Toolbar>
-      </AppBar>
+      <NewPaletteNav />
+
       <Drawer
         sx={{
           width: drawerWidth,
@@ -113,6 +50,8 @@ function NewPaletteForm() {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            // display: 'flex',
+            // alignItems: 'center',
           },
         }}
         variant="persistent"
@@ -125,43 +64,33 @@ function NewPaletteForm() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <Typography variant="h4">Design Your Palette</Typography>
-        <div>
-          <Button variant="contained" color="secondary">
-            Clear Palette
-          </Button>
-          <Button variant="contained" color="primary">
-            Random Color
-          </Button>
-        </div>
-        <ChromePicker
-          color={currentColor}
-          onChange={(e) =>
-            dispatch({ type: 'UPDATE-CURRENT-COLOR', payload: e })
-          }
-        />
-        <ValidatorForm onSubmit={addNewColor}>
-          <TextValidator
-            value={newColorName}
-            name="newColorName"
-            onChange={(e) => dispatch({ type: 'HANDLE-CHANGE', payload: e })}
-            validators={['required', 'isColorNameUnique', 'isColorUnique']}
-            errorMessages={[
-              'Enter a color name',
-              'Color name must be unique',
-              'Color already used!',
-            ]}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            sx={{ background: currentColor, marginTop: '2rem' }}
-          >
-            Add Color
-          </Button>
-        </ValidatorForm>
+        <Container>
+          <Typography variant="h4" fontSize={'2.1rem'} gutterBottom>
+            Design Your Palette
+          </Typography>
+          <div className="buttons">
+            <Button
+              variant="contained"
+              color="secondary"
+              className="button"
+              onClick={clearColors}
+            >
+              Clear Palette
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              className="button"
+              onClick={addRandomColor}
+              disabled={paletteIsFull}
+            >
+              Random Color
+            </Button>
+          </div>
+          <ColorPickerForm paletteIsFull={paletteIsFull} />
+        </Container>
       </Drawer>
+
       <Main open={open}>
         <DrawerHeader />
         <DndComponent />
@@ -170,7 +99,7 @@ function NewPaletteForm() {
   );
 }
 
-const drawerWidth = 380;
+const drawerWidth = 350;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -192,23 +121,6 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   })
 );
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -217,5 +129,21 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }));
+
+const Container = styled('div')({
+  width: '90%',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  alignSelf: 'center',
+  '.buttons': {
+    width: '100%',
+    '.button': {
+      width: '50%',
+    },
+  },
+});
 
 export default NewPaletteForm;

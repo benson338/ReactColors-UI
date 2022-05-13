@@ -37,7 +37,7 @@ function ColorBox({ background, name, moreUrl, FullPalette }) {
         <div className="copy-container">
           <div className="box-content">
             <span className="color-name">
-              {name} {chroma(background).luminance()}
+              {name} {/* {chroma(background).luminance()} */}
             </span>
           </div>
           <button className="copy-button">Copy</button>

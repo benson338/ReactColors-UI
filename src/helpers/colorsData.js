@@ -1,5 +1,6 @@
-// eslint-disable-next-line import/no-anonymous-default-export
-export default [
+import { v4 as uuidv4 } from 'uuid';
+
+const colorsData = [
   {
     paletteName: 'Material UI Colors',
     id: 'material-ui-colors',
@@ -243,3 +244,11 @@ export default [
     ],
   },
 ];
+
+colorsData.forEach((palette) => {
+  palette.colors.forEach((color) => {
+    color.id = uuidv4();
+  });
+});
+
+export default colorsData;

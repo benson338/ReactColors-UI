@@ -45,7 +45,7 @@ function DndComponent() {
           <DraggableColorbox
             color={color.color}
             name={color.name}
-            key={color.name}
+            key={color.id}
             id={color.id}
           />
         ))}

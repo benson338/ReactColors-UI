@@ -38,7 +38,8 @@ const Root = styled.div`
 
   .colors {
     background: #dae1e4;
-    height: 130px;
+    // height: 130px;
+    height: 125px;
     width: 100%;
     border-radius: 5px;
     overflow: hidden;
@@ -59,7 +60,8 @@ const Root = styled.div`
     align-items: center;
     margin: 0;
     color: black;
-    padding-top: 1rem;
+    // padding-top: 1rem;
+    padding-top: 0.5rem;
     position: relative;
 
     .emoji {
