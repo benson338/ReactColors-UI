@@ -8,6 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useGlobalContext } from '../contexts/GlobalContext';
 import { useNavigate } from 'react-router-dom';
+import 'emoji-mart/css/emoji-mart.css';
+import { Picker } from 'emoji-mart';
 
 export default function PaletteFormDialog() {
   const {
@@ -45,7 +47,7 @@ export default function PaletteFormDialog() {
   return (
     <Dialog
       open={dialogOpen}
-      onClose={() => dispatch({ type: 'DIALOG-CLOSE' })}
+      // onClose={() => dispatch({ type: 'DIALOG-CLOSE' })}
     >
       <DialogTitle>Choose a Palette Name</DialogTitle>
       <ValidatorForm onSubmit={handleSubmit}>
@@ -54,6 +56,7 @@ export default function PaletteFormDialog() {
             Please enter a name for your new beautiful palette. Make sure it's
             unique!
           </DialogContentText>
+          <Picker onSelect={console.log} />
           <TextValidator
             label="Palette Name"
             name="newPaletteName"
