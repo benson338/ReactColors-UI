@@ -6,12 +6,12 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import { useGlobalContext } from '../contexts/GlobalContext';
-import PaletteFormDialog from './PaletteFormDialog';
+import PaletteMetaForm from './PaletteMetaForm';
 import { Link } from 'react-router-dom';
 
 function NewPaletteNav() {
   const {
-    newPaletteState: { open, dialogOpen },
+    newPaletteState: { open, formShowing },
     dispatch,
   } = useGlobalContext();
 
@@ -31,6 +31,7 @@ function NewPaletteNav() {
           Create A Palette
         </Typography>
       </Toolbar>
+      {formShowing && <PaletteMetaForm />}
       <div className="nav-buttons">
         <Link to="/">
           <Button variant="contained" color="secondary" className="button">
@@ -40,12 +41,11 @@ function NewPaletteNav() {
         <Button
           variant="contained"
           className="button"
-          onClick={() => dispatch({ type: 'DIALOG-OPEN' })}
+          onClick={() => dispatch({ type: 'SHOW-FORM' })}
         >
           Save
         </Button>
       </div>
-      {dialogOpen && <PaletteFormDialog />}
     </AppBar>
   );
 }

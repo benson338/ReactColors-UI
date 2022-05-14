@@ -1,6 +1,6 @@
 import { Route, Routes, useParams } from 'react-router-dom';
 import './App.css';
-import NewPaletteForm from './components/NewPaletteForm';
+import NewPalettePage from './components/NewPalettePage';
 import Palette from './components/Palette';
 import PaletteList from './components/PaletteList';
 import SingleColorPalette from './components/SingleColorPalette';
@@ -9,7 +9,6 @@ import { generatePalette } from './helpers/colorHelpers';
 
 function App() {
   const { palettes } = useGlobalContext();
-  // console.log(palettes);
 
   const findPalette = (id) => {
     return palettes.find((palette) => palette.id === id);
@@ -35,7 +34,7 @@ function App() {
         path="/palette/:paletteId/:colorId"
         element={<SinglePaletteWrapper />}
       />
-      <Route path="/palette/new" element={<NewPaletteForm />} />
+      <Route path="/palette/new" element={<NewPalettePage />} />
     </Routes>
   );
 }

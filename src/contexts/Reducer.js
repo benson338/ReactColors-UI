@@ -4,10 +4,12 @@ const reducer = (state, action) => {
       return { ...state, open: true };
     case 'DRAWER-CLOSE':
       return { ...state, open: false };
-    case 'DIALOG-OPEN':
-      return { ...state, dialogOpen: true };
-    case 'DIALOG-CLOSE':
-      return { ...state, dialogOpen: false };
+    case 'SHOW-FORM':
+      return { ...state, formShowing: true };
+    case 'HIDE-FORM':
+      return { ...state, formShowing: false, stage: 'form' };
+    case 'SHOW-EMOJI-PICKER':
+      return { ...state, stage: 'emoji' };
     case 'UPDATE-CURRENT-COLOR':
       return { ...state, currentColor: action.payload.hex };
     case 'HANDLE-CHANGE':

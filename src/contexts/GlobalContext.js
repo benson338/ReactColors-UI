@@ -10,7 +10,8 @@ const GlobalContextProvider = ({ children }) => {
   // NewPaletteForm state
   const [newPaletteState, dispatch] = useReducer(reducer, {
     open: false,
-    dialogOpen: false,
+    formShowing: false,
+    stage: 'form',
     currentColor: 'blue',
     newColorName: '',
     newPaletteName: '',
