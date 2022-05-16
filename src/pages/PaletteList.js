@@ -1,6 +1,6 @@
-import MiniPalette from './MiniPalette';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import MiniPalette from '../components/MiniPalette';
 import { useGlobalContext } from '../contexts/GlobalContext';
 
 function PaletteList() {

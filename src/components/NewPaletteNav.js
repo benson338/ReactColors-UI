@@ -3,11 +3,12 @@ import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 import Button from '@mui/material/Button';
 import { useGlobalContext } from '../contexts/GlobalContext';
 import PaletteMetaForm from './PaletteMetaForm';
 import { Link } from 'react-router-dom';
+import { drawerWidth } from '../helpers/constants';
 
 function NewPaletteNav() {
   const {
@@ -25,7 +26,7 @@ function NewPaletteNav() {
           edge="start"
           sx={{ mr: 2, ...(open && { display: 'none' }) }}
         >
-          <MenuIcon />
+          <AddToPhotosIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
           Create A Palette
@@ -49,8 +50,6 @@ function NewPaletteNav() {
     </AppBar>
   );
 }
-
-const drawerWidth = 350;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',

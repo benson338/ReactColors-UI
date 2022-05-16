@@ -1,9 +1,9 @@
 import React from 'react';
-import ColorBox from './ColorBox';
-import Navbar from './Navbar';
-import { usePaletteContext } from '../contexts/PaletteContext';
-import PaletteFooter from './PaletteFooter';
 import styled from '@emotion/styled';
+import ColorBox from '../components/ColorBox';
+import Navbar from '../components/Navbar';
+import PaletteFooter from '../components/PaletteFooter';
+import { usePaletteContext } from '../contexts/PaletteContext';
 
 function SingleColorPalette({ palette, colorId }) {
   // console.log(colorId); => is same as color name

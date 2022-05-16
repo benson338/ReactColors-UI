@@ -55,6 +55,7 @@ export default function PaletteMetaForm() {
       <Dialog
         open={stage === 'emoji'}
         onClose={() => dispatch({ type: 'HIDE-FORM' })}
+        sx={{ transition: 'all 0.15s' }}
       >
         <DialogTitle>Choose a Palette Emoji</DialogTitle>
         <Picker title="Pick your emoji…" onSelect={addEmojiAndSubmit} />
@@ -62,6 +63,7 @@ export default function PaletteMetaForm() {
       <Dialog
         open={stage === 'form'}
         onClose={() => dispatch({ type: 'HIDE-FORM' })}
+        sx={{ transition: 'all 0.15s' }}
       >
         <DialogTitle>Choose a Palette Name</DialogTitle>
         <ValidatorForm onSubmit={() => dispatch({ type: 'SHOW-EMOJI-PICKER' })}>

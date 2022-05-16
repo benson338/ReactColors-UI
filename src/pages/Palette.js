@@ -1,12 +1,10 @@
-import ColorBox from './ColorBox';
-import Navbar from './Navbar';
-import PaletteFooter from './PaletteFooter';
-import { usePaletteContext } from '../contexts/PaletteContext';
 import styled from '@emotion/styled';
+import ColorBox from '../components/ColorBox';
+import Navbar from '../components/Navbar';
+import PaletteFooter from '../components/PaletteFooter';
+import { usePaletteContext } from '../contexts/PaletteContext';
 
 function Palette({ palette }) {
-  // console.log(palette);
-  // generated palette
   const { colors, paletteName, emoji, id } = palette;
   const {
     state: { level, format },

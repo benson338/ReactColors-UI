@@ -5,12 +5,13 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import DndComponent from '../components/DndComponent';
+import DrawerContents from '../components/DrawerContents';
+import NewPaletteNav from '../components/NewPaletteNav';
 import { useGlobalContext } from '../contexts/GlobalContext';
-import DndComponent from './DndComponent';
-import DrawerContents from './DrawerContents';
-import NewPaletteNav from './NewPaletteNav';
+import { drawerWidth } from '../helpers/constants';
 
-function NewPalettePage() {
+function NewPalette() {
   const {
     newPaletteState: { open },
     dispatch,
@@ -51,13 +52,11 @@ function NewPalettePage() {
   );
 }
 
-const drawerWidth = 350;
-
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
     height: 'calc(100vh - 64px)',
-    padding: theme.spacing(3),
+    padding: 0,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -82,4 +81,4 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default NewPalettePage;
+export default NewPalette;
