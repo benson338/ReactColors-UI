@@ -3,6 +3,7 @@ import ColorBox from '../components/ColorBox';
 import Navbar from '../components/Navbar';
 import PaletteFooter from '../components/PaletteFooter';
 import { usePaletteContext } from '../contexts/PaletteContext';
+import sizes from '../helpers/sizes';
 
 function Palette({ palette }) {
   const { colors, paletteName, emoji, id } = palette;
@@ -23,8 +24,6 @@ function Palette({ palette }) {
       key={color.id}
       moreUrl={`/palette/${id}/${color.id}`}
       FullPalette
-      // colorId={color.id}
-      // paletteId={id}
     />
   ));
 
@@ -47,10 +46,19 @@ const StyledComponent = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  // overflow-x: hidden;
+  // overflow-y: auto;
   overflow: hidden;
+  position: relative;
 
   .Palette-colors {
-    height: 88vh;
+    min-height: 88vh;
+    max-height: 100%;
+    // bellow for scrollable/small screens only
+    ${sizes.down('md')} {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
   }
 `;
 

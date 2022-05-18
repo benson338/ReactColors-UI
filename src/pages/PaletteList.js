@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import MiniPalette from '../components/MiniPalette';
 import { useGlobalContext } from '../contexts/GlobalContext';
@@ -11,13 +12,27 @@ function PaletteList() {
       <Container>
         <nav className="nav">
           <h1>React Colors UI</h1>
-          <Link to="/palette/new">Create Palette</Link>
+          <Link to="/palette/new">
+            <Button variant="outlined" className="create-btn">
+              Create Palette
+            </Button>
+          </Link>
         </nav>
         <div className="palettes">
           {palettes.map((palette) => (
             <MiniPalette {...palette} key={palette.id} />
           ))}
         </div>
+        <div
+          className="clearance"
+          style={{
+            display: 'block',
+            padding: '1rem',
+            width: '100%',
+            height: '1rem',
+            marginTop: '1rem',
+          }}
+        />
       </Container>
     </Root>
   );
@@ -46,9 +61,13 @@ const Container = styled.div`
     align-items: center;
     color: white;
 
-    a {
+    .create-btn {
       color: white;
-      font-size: 1.2rem;
+      outline: 2px solid white;
+      font-size: 0.85rem;
+    }
+
+    a {
       text-decoration: none;
     }
   }

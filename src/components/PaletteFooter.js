@@ -9,12 +9,17 @@ function PaletteFooter({ paletteName, emoji }) {
   );
 }
 
-const StyledFooter = styled.footer`
+const StyledFooter = styled.div`
   background: white;
   height: 5vh;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  // z-index: 5;
+  // position: fixed;
+  // bottom: 0;
+  // right: 0;
+  // left: 0;
 
   .emoji {
     font-size: 1.2rem;

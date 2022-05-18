@@ -13,6 +13,7 @@ import 'rc-slider/assets/index.css';
 // ** for overriding with inline css
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import sizes from '../helpers/sizes';
 
 const Navbar = ({ level, format, changeLevel, changeFormat, hideSlider }) => {
   const navigate = useNavigate();
@@ -108,9 +109,17 @@ const StyledNavbar = styled.header`
     height: 100%;
     display: flex;
     align-items: center;
+    cursor: pointer;
 
-    &:hover {
-      cursor: pointer;
+    @media (max-width: 340px) {
+      margin-right: 0;
+      padding: 0 0.5rem;
+    }
+
+    span {
+      @media (max-width: 340px) {
+        font-size: 1rem;
+      }
     }
   }
 
@@ -122,20 +131,39 @@ const StyledNavbar = styled.header`
     height: 100%;
     display: flex;
     align-items: center;
+    ${sizes.down('sm')} {
+      padding: 0 0.2rem;
+    }
+    ${sizes.down('xs')} {
+      display: none;
+    }
   }
 `;
 
 const SliderContainer = styled.div`
+  ${sizes.down('xs')} {
+    display: none;
+  }
   .slider {
     width: 340px;
     margin: 0 10px;
     display: inline-block;
+
+    ${sizes.down('md')} {
+      width: 250px;
+    }
+    ${sizes.down('sm')} {
+      width: 130px;
+    }
   }
 `;
 
 const SelectContainer = styled.div`
   margin-left: auto;
   margin-right: 1rem;
+  ${sizes.down('xs')} {
+    margin-right: 0;
+  }
 `;
 
 export default Navbar;

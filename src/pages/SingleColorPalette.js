@@ -44,8 +44,8 @@ function SingleColorPalette({ palette, colorId }) {
 
 const StyledComponent = styled.div`
   height: 100vh;
-  /* display: flex;
-  flex-direction: column; */
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 
   .Palette-colors {

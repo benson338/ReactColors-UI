@@ -28,7 +28,7 @@ function NewPaletteNav() {
         >
           <AddToPhotosIcon />
         </IconButton>
-        <Typography variant="h6" noWrap component="div">
+        <Typography variant="h6" noWrap component="div" className="Typography">
           Create A Palette
         </Typography>
       </Toolbar>
@@ -73,11 +73,24 @@ const AppBar = styled(MuiAppBar, {
   '& .nav-buttons': {
     display: 'flex',
     marginRight: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      marginRight: '0.4rem',
+    },
     '& a': {
       textDecoration: 'none',
     },
     '.button': {
       margin: '0 0.5rem',
+      [theme.breakpoints.down('sm')]: {
+        margin: '0 0.2rem',
+        padding: '0.4rem 0.5rem',
+        fontSize: '0.75rem',
+      },
+    },
+  },
+  '.Typography': {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.1rem',
     },
   },
 }));
