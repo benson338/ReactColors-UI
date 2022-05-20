@@ -2,9 +2,10 @@ import styled from '@emotion/styled';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../contexts/GlobalContext';
+import sizes from '../helpers/sizes';
 
 function MiniPalette({ paletteName, emoji, colors, id }) {
-  const { setPalettes } = useGlobalContext();
+  const { setDeleteState } = useGlobalContext();
 
   let navigate = useNavigate();
 
@@ -14,7 +15,9 @@ function MiniPalette({ paletteName, emoji, colors, id }) {
 
   const deletePalette = (e) => {
     e.stopPropagation();
-    setPalettes((palettes) => palettes.filter((palette) => palette.id !== id));
+    // setPalettes((palettes) => palettes.filter((palette) => palette.id !== id));
+    // setDeleteOpen(true);
+    setDeleteState({ open: true, id: id });
   };
 
   const miniColorBoxes = colors.map((color) => (
@@ -60,6 +63,7 @@ const Root = styled.div`
     right: 0;
     top: 0;
     margin-right: -1px;
+    margin-top: -1px;
     padding: 8px;
     border-radius: 3px;
     z-index: 10;
@@ -69,10 +73,26 @@ const Root = styled.div`
 
   .colors {
     background: #dae1e4;
-    height: 130px;
+    height: 135px;
     width: 100%;
     border-radius: 5px;
     overflow: hidden;
+
+    ${sizes.down('lg')} {
+      height: 130px;
+    }
+    ${sizes.down('md')} {
+      height: 135px;
+    }
+    ${sizes.down('sm')} {
+      height: 125px;
+    }
+    ${sizes.down('xs')} {
+      height: 145px;
+    }
+    ${sizes.down('xxs')} {
+      height: 140px;
+    }
 
     .mini-color {
       height: 25%;
@@ -90,13 +110,16 @@ const Root = styled.div`
     align-items: center;
     margin: 0;
     color: black;
-    // padding-top: 0.75rem;
-    padding-top: 0.5rem;
+    padding-top: 0.75rem;
+    // padding-top: 0.5rem;
     position: relative;
+    font-size: 0.9rem;
+    font-family: Roboto;
 
     .emoji {
       margin-left: 0.5rem;
       font-size: 1.2rem;
+      margin-top: -2px;
     }
   }
 `;

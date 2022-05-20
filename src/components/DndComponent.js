@@ -8,9 +8,9 @@ function DndComponent() {
   const { colors, setColors } = useGlobalContext();
 
   const mouseSensor = useSensor(MouseSensor, {
-    // Require the mouse to move by 7 pixels before activating
+    // Require the mouse to move by 10 pixels before activating
     activationConstraint: {
-      distance: 7,
+      distance: 10,
     },
   });
   const touchSensor = useSensor(TouchSensor, {

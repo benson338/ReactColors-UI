@@ -1,58 +1,121 @@
+import bg from '../bg.svg';
 import styled from '@emotion/styled';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import ListItemText from '@mui/material/ListItemText';
+import { blue, red } from '@mui/material/colors';
 import { Link } from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import MiniPalette from '../components/MiniPalette';
 import { useGlobalContext } from '../contexts/GlobalContext';
+import sizes from '../helpers/sizes';
+import '../styles/transition-styles.css';
 
 function PaletteList() {
-  const { palettes } = useGlobalContext();
+  const {
+    palettes,
+    setPalettes,
+    deleteState: { open, id },
+    setDeleteState,
+  } = useGlobalContext();
+
+  const handleDelete = () => {
+    setPalettes((palettes) => palettes.filter((palette) => palette.id !== id));
+    setDeleteState((st) => ({ ...st, open: false }));
+  };
 
   return (
     <Root>
       <Container>
         <nav className="nav">
-          <h1>React Colors UI</h1>
+          <h1 className="logo">React Colors UI</h1>
           <Link to="/palette/new">
-            <Button variant="outlined" className="create-btn">
+            <Button
+              variant="outlined"
+              className="create-btn"
+              sx={{ color: 'white' }}
+              color="white"
+            >
               Create Palette
             </Button>
           </Link>
         </nav>
-        <div className="palettes">
+        <TransitionGroup className="palettes">
           {palettes.map((palette) => (
-            <MiniPalette {...palette} key={palette.id} />
+            <CSSTransition key={palette.id} classNames="fade" timeout={500}>
+              <MiniPalette
+                {...palette}
+                key={palette.id}
+                // handleDelete={}
+              />
+            </CSSTransition>
           ))}
-        </div>
-        <div
-          className="clearance"
-          style={{
-            display: 'block',
-            padding: '1rem',
-            width: '100%',
-            height: '1rem',
-            marginTop: '1rem',
-          }}
-        />
+        </TransitionGroup>
       </Container>
+      <Dialog open={open} aria-labelledby="delete-dialog-title">
+        <DialogTitle id="delete-dialog-title">Delete This Palette?</DialogTitle>
+        <List>
+          <ListItem button onClick={handleDelete}>
+            <ListItemAvatar>
+              <Avatar sx={{ backgroundColor: blue[100], color: blue[600] }}>
+                <CheckIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="Delete" />
+          </ListItem>
+          <ListItem
+            button
+            onClick={() => setDeleteState((st) => ({ ...st, open: false }))}
+          >
+            <ListItemAvatar>
+              <Avatar sx={{ backgroundColor: red[50], color: red[500] }}>
+                <CloseIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="Cancel" />
+          </ListItem>
+        </List>
+      </Dialog>
     </Root>
   );
 }
 
 const Root = styled.div`
-  background: blue;
+  background-color: black;
+  background: url(${bg}) no-repeat center center / cover;
   height: 100vh;
   display: flex;
-  align-items: flex-start;
   overflow: auto;
+  align-items: flex-start;
   justify-content: center;
 `;
 
 const Container = styled.div`
-  width: 50%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   flex-wrap: wrap;
+  ${sizes.down('lg')} {
+    width: 70%;
+  }
+  ${sizes.down('md')} {
+    // width: 60%;
+    width: 70%;
+  }
+  ${sizes.down('sm')} {
+    width: 75%;
+  }
+  ${sizes.down('xs')} {
+    width: 75%;
+  }
 
   .nav {
     display: flex;
@@ -61,10 +124,50 @@ const Container = styled.div`
     align-items: center;
     color: white;
 
+    .logo {
+      font-faimily: Roboto, 'Segoe UI', sans-serif;
+      text-transform: uppercase;
+      font-size: 2.5rem;
+      font-weight: 300;
+      word-spacing: 10px;
+      line-height: 2.3rem;
+      ${sizes.down('sm')} {
+        font-size: 2rem;
+      }
+      ${sizes.down('md')} {
+        font-size: 1.75rem;
+      }
+      ${sizes.down('xs')} {
+        font-size: 1.5rem;
+        word-spacing: 7px;
+      }
+      ${sizes.down('xxs')} {
+        font-size: 1.4rem;
+        word-spacing: 3px;
+      }
+    }
+
     .create-btn {
-      color: white;
-      outline: 2px solid white;
-      font-size: 0.85rem;
+      font-size: 0.825rem;
+      margin-bottom: -9px;
+      ${sizes.down('md')} {
+        font-size: 0.725rem;
+        padding: 0.3rem 0.4rem;
+        margin-bottom: -5px;
+      }
+      ${sizes.down('sm')} {
+        font-size: 0.7rem;
+        padding: 0.4rem;
+        margin-bottom: -4px;
+      }
+      ${sizes.down('xs')} {
+        font-size: 0.6rem;
+        margin-bottom: -3px;
+      }
+      ${sizes.down('xxs')} {
+        padding: 0.2rem;
+        margin-bottom: 0;
+      }
     }
 
     a {
@@ -78,15 +181,22 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 30%);
     gap: 5%;
+    justify-content: center;
+    ${sizes.down('md')} {
+      grid-template-columns: repeat(2, 47.5%);
+    }
+    ${sizes.down('sm')} {
+      gap: 4%;
+    }
+    ${sizes.down('xs')} {
+      grid-template-columns: repeat(1, 80%);
+      gap: 1%;
+    }
+    ${sizes.down('xxs')} {
+      grid-template-columns: repeat(1, 100%);
+      gap: 1%;
+    }
   }
 `;
-
-// const RootWithObject = styled.div({
-//   backgroundColor: 'white',
-//   position: 'relative',
-//   '& .title': {
-//     color: 'pink',
-//   },
-// });
 
 export default PaletteList;

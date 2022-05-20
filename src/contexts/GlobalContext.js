@@ -26,6 +26,8 @@ const GlobalContextProvider = ({ children }) => {
   });
   // Colors state => should be independent
   const [colors, setColors] = useState(palettes[0].colors);
+  // State in PaletteList
+  const [deleteState, setDeleteState] = useState({ open: false, id: '' });
 
   useEffect(() => {
     localStorage.setItem('palettes', JSON.stringify(palettes));
@@ -40,6 +42,8 @@ const GlobalContextProvider = ({ children }) => {
         dispatch,
         colors,
         setColors,
+        deleteState,
+        setDeleteState,
       }}
     >
       {children}
