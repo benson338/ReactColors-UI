@@ -44,8 +44,8 @@ export default function PaletteMetaForm() {
     };
     setPalettes((st) => [...st, newPalette]);
 
-    dispatch({ type: 'CLEAR-PALETTE' });
     dispatch({ type: 'HIDE-FORM' });
+    dispatch({ type: 'CLEAR-PALETTE' });
     navigate('/');
     setColors(palettes[0].colors);
   };

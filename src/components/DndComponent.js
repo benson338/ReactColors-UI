@@ -41,11 +41,12 @@ function DndComponent() {
   return (
     <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
       <SortableContext items={colors}>
-        {colors.map((color) => (
+        {colors.map((color, i) => (
           <DraggableColorbox
             color={color.color}
             name={color.name}
-            key={color.id}
+            // key={color.id} getting duplicate key error
+            key={color.id + `${i + '100019'}`}
             id={color.id}
           />
         ))}

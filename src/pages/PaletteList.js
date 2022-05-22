@@ -13,10 +13,10 @@ import ListItemText from '@mui/material/ListItemText';
 import { blue, red } from '@mui/material/colors';
 import { Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { motion } from 'framer-motion';
 import MiniPalette from '../components/MiniPalette';
 import { useGlobalContext } from '../contexts/GlobalContext';
 import sizes from '../helpers/sizes';
-import '../styles/transition-styles.css';
 
 function PaletteList() {
   const {
@@ -32,58 +32,58 @@ function PaletteList() {
   };
 
   return (
-    <Root>
-      <Container>
-        <nav className="nav">
-          <h1 className="logo">React Colors UI</h1>
-          <Link to="/palette/new">
-            <Button
-              variant="outlined"
-              className="create-btn"
-              sx={{ color: 'white' }}
-              color="white"
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <Root>
+        <Container>
+          <nav className="nav">
+            <h1 className="logo">React Colors UI</h1>
+            <Link to="/palette/new">
+              <Button
+                variant="outlined"
+                className="create-btn"
+                sx={{ color: 'white' }}
+                color="white"
+              >
+                Create Palette
+              </Button>
+            </Link>
+          </nav>
+          <TransitionGroup className="palettes">
+            {palettes.map((palette) => (
+              <CSSTransition key={palette.id} classNames="fade" timeout={1000}>
+                <MiniPalette {...palette} key={palette.id} />
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
+        </Container>
+        <Dialog open={open} aria-labelledby="delete-dialog-title">
+          <DialogTitle id="delete-dialog-title">
+            Delete This Palette?
+          </DialogTitle>
+          <List>
+            <ListItem button onClick={handleDelete}>
+              <ListItemAvatar>
+                <Avatar sx={{ backgroundColor: blue[100], color: blue[600] }}>
+                  <CheckIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Delete" />
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => setDeleteState((st) => ({ ...st, open: false }))}
             >
-              Create Palette
-            </Button>
-          </Link>
-        </nav>
-        <TransitionGroup className="palettes">
-          {palettes.map((palette) => (
-            <CSSTransition key={palette.id} classNames="fade" timeout={500}>
-              <MiniPalette
-                {...palette}
-                key={palette.id}
-                // handleDelete={}
-              />
-            </CSSTransition>
-          ))}
-        </TransitionGroup>
-      </Container>
-      <Dialog open={open} aria-labelledby="delete-dialog-title">
-        <DialogTitle id="delete-dialog-title">Delete This Palette?</DialogTitle>
-        <List>
-          <ListItem button onClick={handleDelete}>
-            <ListItemAvatar>
-              <Avatar sx={{ backgroundColor: blue[100], color: blue[600] }}>
-                <CheckIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Delete" />
-          </ListItem>
-          <ListItem
-            button
-            onClick={() => setDeleteState((st) => ({ ...st, open: false }))}
-          >
-            <ListItemAvatar>
-              <Avatar sx={{ backgroundColor: red[50], color: red[500] }}>
-                <CloseIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Cancel" />
-          </ListItem>
-        </List>
-      </Dialog>
-    </Root>
+              <ListItemAvatar>
+                <Avatar sx={{ backgroundColor: red[50], color: red[500] }}>
+                  <CloseIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Cancel" />
+            </ListItem>
+          </List>
+        </Dialog>
+      </Root>
+    </motion.div>
   );
 }
 

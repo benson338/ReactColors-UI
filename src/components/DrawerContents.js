@@ -31,17 +31,25 @@ function DrawerContents() {
 
   const clearColors = () => setColors([]);
 
-  const addRandomColor = () => {
+  const generateRandomColor = () => {
     const allColors = palettes.map((p) => p.colors).flat();
-    const random = Math.floor(Math.random() * allColors.length);
-    const randomColor = allColors[random];
+    return allColors[Math.floor(Math.random() * allColors.length)];
+  };
 
-    const noDuplicate = colors.every((color) => color !== randomColor);
-    if (noDuplicate) {
-      setColors((colors) => [...colors, randomColor]);
-    } else {
-      addRandomColor();
+  const addRandomColor = () => {
+    const usedColors = [];
+    let newColor = generateRandomColor();
+
+    while (usedColors.includes(newColor)) {
+      newColor = generateRandomColor();
     }
+
+    usedColors.push(newColor);
+    setColors((st) => [...st, newColor]);
+    /* const noDuplicate = colors.every((color) => color !== randomColor);
+    noDuplicate
+      ? setColors((colors) => [...colors, randomColor])
+      : addRandomColor(); */
   };
 
   const addNewColor = () => {

@@ -5,9 +5,9 @@ const reducer = (state, action) => {
     case 'DRAWER-CLOSE':
       return { ...state, open: false };
     case 'SHOW-FORM':
-      return { ...state, formShowing: true };
+      return { ...state, formShowing: true, stage: 'form' };
     case 'HIDE-FORM':
-      return { ...state, formShowing: false, stage: 'form' };
+      return { ...state, formShowing: false, stage: '' };
     case 'SHOW-EMOJI-PICKER':
       return { ...state, stage: 'emoji' };
     case 'UPDATE-CURRENT-COLOR':

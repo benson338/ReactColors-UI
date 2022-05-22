@@ -44,6 +44,7 @@ function Palette({ palette }) {
 
 const StyledComponent = styled.div`
   height: 100vh;
+  background: white;
   display: flex;
   flex-direction: column;
   // overflow-x: hidden;

@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { motion } from 'framer-motion';
 import DndComponent from '../components/DndComponent';
 import DrawerContents from '../components/DrawerContents';
 import NewPaletteNav from '../components/NewPaletteNav';
@@ -18,37 +19,43 @@ function NewPalette() {
   } = useGlobalContext();
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <NewPaletteNav />
+    <motion.div
+      initial={{ opacity: 0, x: '35vw' }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.2, duration: 0.5, ease: 'linear' }}
+    >
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <NewPaletteNav />
 
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
+        <Drawer
+          sx={{
             width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={() => dispatch({ type: 'DRAWER-CLOSE' })}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <DrawerContents />
-      </Drawer>
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={open}
+        >
+          <DrawerHeader>
+            <IconButton onClick={() => dispatch({ type: 'DRAWER-CLOSE' })}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <DrawerContents />
+        </Drawer>
 
-      <Main open={open}>
-        <DrawerHeader />
-        <DndComponent />
-      </Main>
-    </Box>
+        <Main open={open}>
+          <DrawerHeader />
+          <DndComponent />
+        </Main>
+      </Box>
+    </motion.div>
   );
 }
 
