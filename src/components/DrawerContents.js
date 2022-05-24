@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import chroma from 'chroma-js';
 import { ChromePicker } from 'react-color';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,6 +20,8 @@ function DrawerContents() {
 
   const paletteIsFull = colors.length >= 20;
 
+  const isLightColor = chroma(currentColor).luminance() >= 0.65;
+
   useEffect(() => {
     ValidatorForm.addValidationRule('isColorNameUnique', (value) => {
       return colors.every(
@@ -32,26 +35,42 @@ function DrawerContents() {
 
   const clearColors = () => setColors([]);
 
-  const generateRandomColor = () => {
-    const allColors = palettes.map((p) => p.colors).flat();
-    return allColors[Math.floor(Math.random() * allColors.length)];
-  };
-
   const addRandomColor = () => {
-    let usedColors = [];
-    let newColor = generateRandomColor();
+    const allColors = palettes.map((p) => p.colors).flat();
+    let random,
+      randomColor,
+      isDuplicate = true;
 
-    while (usedColors.includes(newColor)) {
-      newColor = generateRandomColor();
+    while (isDuplicate) {
+      random = Math.floor(Math.random() * allColors.length);
+      randomColor = allColors[random];
+      // eslint-disable-next-line no-loop-func
+      isDuplicate = colors.some((color) => color.name === randomColor.name);
     }
 
-    usedColors.push(newColor);
-    setColors((st) => [...st, newColor]);
-    /* const noDuplicate = colors.every((color) => color !== randomColor);
-    noDuplicate
-      ? setColors((colors) => [...colors, randomColor])
-      : addRandomColor(); */
+    setColors((st) => [...st, randomColor]);
   };
+
+  // AddRandomColor => error versions..
+  // silly me, didn't check color.name..
+  // version 2
+  /* const generateRandomColor = () => {
+  const allColors = palettes.map((p) => p.colors).flat();
+  return allColors[Math.floor(Math.random() * allColors.length)];
+  }; */
+  // let usedColors = [];
+  // let newColor = generateRandomColor();
+
+  // while (usedColors.includes(newColor)) {
+  //   newColor = generateRandomColor();
+  // }
+  // usedColors.push(newColor);
+  // setColors((st) => [...st, newColor]);
+  // version 1
+  // const noDuplicate = colors.every((color) => color !== randomColor);
+  // noDuplicate
+  //   ? setColors((colors) => [...colors, randomColor])
+  //   : addRandomColor();
 
   const addNewColor = () => {
     const newColor = {
@@ -94,7 +113,7 @@ function DrawerContents() {
         <ChevronRightIcon />
         <ChevronRightIcon />
       </div>
-      <Container>
+      <Container props={{ currentColor, isLightColor }}>
         <ChromePicker
           color={currentColor}
           className="color-picker"
@@ -121,9 +140,8 @@ function DrawerContents() {
           <Button
             variant="contained"
             color="primary"
-            className="add-color"
+            className={`add-color ${paletteIsFull && 'full'}`}
             type="submit"
-            sx={{ background: currentColor }}
             disabled={paletteIsFull}
           >
             {paletteIsFull ? 'Palette Full' : 'Add Color'}
@@ -163,9 +181,18 @@ const Container = styled.div`
     margin-top: 1rem;
   }
   .add-color {
+    background: ${({ props }) => props.currentColor};
+    color: ${({ props }) =>
+      props.isLightColor ? 'rgba(0, 0, 0, 0.8)' : 'white'};
     width: 100%;
     margin-top: 1rem;
     font-size: 1.5rem;
+    :hover {
+      opacity: 0.95;
+    }
+    &.full {
+      background: grey;
+    }
   }
   .colorNameInput {
     width: 100%;

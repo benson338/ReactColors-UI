@@ -8,8 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useGlobalContext } from '../contexts/GlobalContext';
 import { useNavigate } from 'react-router-dom';
-import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
 
 export default function PaletteMetaForm() {
   const {
@@ -55,7 +55,7 @@ export default function PaletteMetaForm() {
       <Dialog
         open={stage === 'emoji'}
         onClose={() => dispatch({ type: 'HIDE-FORM' })}
-        sx={{ transition: 'all 0.3s' }}
+        transitionDuration={1000}
       >
         <DialogTitle>Choose a Palette Emoji</DialogTitle>
         <Picker title="Pick your emoji…" onSelect={addEmojiAndSubmit} />
@@ -63,7 +63,7 @@ export default function PaletteMetaForm() {
       <Dialog
         open={stage === 'form'}
         onClose={() => dispatch({ type: 'HIDE-FORM' })}
-        sx={{ transition: 'all 0.3s' }}
+        transitionDuration={1000}
       >
         <DialogTitle>Choose a Palette Name</DialogTitle>
         <ValidatorForm onSubmit={() => dispatch({ type: 'SHOW-EMOJI-PICKER' })}>

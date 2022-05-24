@@ -5,7 +5,6 @@ export default {
     const sizes = {
       xxs: '460px',
       xs: '576px',
-      // sm: '775px',
       sm: '790px',
       md: '1050px',
       lg: '1280px',

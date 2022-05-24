@@ -107,7 +107,6 @@ const Container = styled.div`
     width: 70%;
   }
   ${sizes.down('md')} {
-    // width: 60%;
     width: 70%;
   }
   ${sizes.down('sm')} {
@@ -131,15 +130,16 @@ const Container = styled.div`
       font-weight: 300;
       word-spacing: 10px;
       line-height: 2.3rem;
-      ${sizes.down('sm')} {
-        font-size: 2rem;
-      }
       ${sizes.down('md')} {
+        font-size: 2rem;
+        word-spacing: 7px;
+      }
+      ${sizes.down('sm')} {
         font-size: 1.75rem;
+        word-spacing: 5px;
       }
       ${sizes.down('xs')} {
-        font-size: 1.5rem;
-        word-spacing: 7px;
+        font-size: 1.7rem;
       }
       ${sizes.down('xxs')} {
         font-size: 1.4rem;
@@ -153,16 +153,15 @@ const Container = styled.div`
       ${sizes.down('md')} {
         font-size: 0.725rem;
         padding: 0.3rem 0.4rem;
-        margin-bottom: -5px;
+        margin-bottom: -6px;
       }
       ${sizes.down('sm')} {
         font-size: 0.7rem;
-        padding: 0.4rem;
+        padding: 0.3rem;
         margin-bottom: -4px;
       }
       ${sizes.down('xs')} {
         font-size: 0.6rem;
-        margin-bottom: -3px;
       }
       ${sizes.down('xxs')} {
         padding: 0.2rem;

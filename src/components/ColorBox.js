@@ -10,9 +10,8 @@ function ColorBox({ background, name, moreUrl, FullPalette }) {
   const changeCopyState = () => {
     setCopy(true);
   };
-  const luminance = chroma(background).luminance();
-  const isDarkColor = luminance <= 0.1;
-  const isLightColor = luminance >= 0.65;
+  const isDarkColor = chroma(background).luminance() <= 0.1;
+  const isLightColor = chroma(background).luminance() >= 0.65;
 
   useEffect(() => {
     setTimeout(() => {
@@ -30,9 +29,7 @@ function ColorBox({ background, name, moreUrl, FullPalette }) {
         </div>
         <CopyContainer props={{ isLightColor, isDarkColor }}>
           <div className="box-content">
-            <span className="color-name">
-              {name} {/* {luminance} */}
-            </span>
+            <span className="color-name">{name}</span>
           </div>
           <button className="copy-button">Copy</button>
         </CopyContainer>
@@ -57,7 +54,6 @@ const StyledColorBox = styled.div`
   margin-bottom: -4.5px;
   text-transform: uppercase;
 
-  // media query for large screen & down
   ${sizes.down('lg')} {
     width: ${({ props }) => (props.FullPalette ? '25%' : '20%')};
     height: ${({ props }) => (props.FullPalette ? '20%' : '50%')};

@@ -16,7 +16,6 @@ function MiniPalette({ paletteName, emoji, colors, id, inBuilt }) {
 
   const deletePalette = (e) => {
     e.stopPropagation();
-    // setPalettes((palettes) => palettes.filter((palette) => palette.id !== id));
     setDeleteState({ open: true, id: id });
   };
 
@@ -71,6 +70,9 @@ const Root = styled.div`
     z-index: 10;
     opacity: 0;
     transition: all 0.25s ease-in-out;
+    ${sizes.down('sm')} {
+      opacity: 0.7;
+    }
   }
 
   .colors {

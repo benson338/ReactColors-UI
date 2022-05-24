@@ -1,8 +1,8 @@
-import { useGlobalContext } from '../contexts/GlobalContext';
 import { DndContext } from '@dnd-kit/core';
 import { MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import DraggableColorbox from './DraggableColorbox';
+import { useGlobalContext } from '../contexts/GlobalContext';
 
 function DndComponent() {
   const { colors, setColors } = useGlobalContext();
@@ -41,12 +41,11 @@ function DndComponent() {
   return (
     <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
       <SortableContext items={colors}>
-        {colors.map((color, i) => (
+        {colors.map((color) => (
           <DraggableColorbox
             color={color.color}
             name={color.name}
-            // key={color.id} getting duplicate key error
-            key={color.id + `${i + '100019'}`}
+            key={color.id}
             id={color.id}
           />
         ))}

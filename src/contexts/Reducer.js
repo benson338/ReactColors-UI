@@ -18,7 +18,7 @@ const reducer = (state, action) => {
         [action.payload.target.name]: action.payload.target.value,
       };
     case 'CLEAR-PALETTE':
-      return { ...state, currentColor: 'blue', newPaletteName: '' };
+      return { ...state, currentColor: 'teal', newPaletteName: '' };
     case 'CLEAR-COLOR-NAME':
       return { ...state, newColorName: '' };
     default:

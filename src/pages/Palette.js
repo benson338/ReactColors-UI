@@ -55,7 +55,6 @@ const StyledComponent = styled.div`
   .Palette-colors {
     min-height: 88vh;
     max-height: 100%;
-    // bellow for scrollable/small screens only
     ${sizes.down('md')} {
       overflow-x: hidden;
       overflow-y: auto;
