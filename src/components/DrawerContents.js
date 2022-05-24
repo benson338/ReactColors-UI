@@ -1,11 +1,12 @@
+import { useEffect } from 'react';
+import styled from '@emotion/styled';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useEffect } from 'react';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { ChromePicker } from 'react-color';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { useGlobalContext } from '../contexts/GlobalContext';
 import { v4 as uuidv4 } from 'uuid';
-import styled from '@emotion/styled';
+import { useGlobalContext } from '../contexts/GlobalContext';
 
 function DrawerContents() {
   const {
@@ -37,7 +38,7 @@ function DrawerContents() {
   };
 
   const addRandomColor = () => {
-    const usedColors = [];
+    let usedColors = [];
     let newColor = generateRandomColor();
 
     while (usedColors.includes(newColor)) {
@@ -87,6 +88,12 @@ function DrawerContents() {
           Random Color
         </Button>
       </div>
+      <div className="message">
+        <Typography variant="p">Drag N Drop Colors</Typography>
+        <ChevronRightIcon />
+        <ChevronRightIcon />
+        <ChevronRightIcon />
+      </div>
       <Container>
         <ChromePicker
           color={currentColor}
@@ -95,7 +102,7 @@ function DrawerContents() {
             dispatch({ type: 'UPDATE-CURRENT-COLOR', payload: e })
           }
         />
-        <ValidatorForm onSubmit={addNewColor}>
+        <ValidatorForm onSubmit={addNewColor} instantValidate={false}>
           <TextValidator
             label="Color Name"
             className="colorNameInput"
@@ -140,6 +147,12 @@ const Root = styled.div`
     .button {
       width: 50%;
     }
+  }
+  .message {
+    display: flex;
+    padding-top: 0.5rem;
+    justify-content: center;
+    align-items: center;
   }
 `;
 

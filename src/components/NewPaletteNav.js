@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -5,9 +6,8 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 import Button from '@mui/material/Button';
-import { useGlobalContext } from '../contexts/GlobalContext';
 import PaletteMetaForm from './PaletteMetaForm';
-import { Link } from 'react-router-dom';
+import { useGlobalContext } from '../contexts/GlobalContext';
 import { drawerWidth } from '../helpers/constants';
 
 function NewPaletteNav() {

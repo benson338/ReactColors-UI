@@ -31,6 +31,16 @@ function App() {
     hidden: { opacity: 0, x: '20vw' },
   };
 
+  // const usePalette = () => {
+  //   let { paletteId } = useParams();
+  //   const requiredPalette = useMemo(
+  //     () => palettes.find((palette) => palette.id === paletteId),
+  //     [paletteId]
+  //   )
+  //   return requiredPalette;
+  // };
+  // This custom hook/useMemo returns undefined..
+
   const findPalette = (id) => {
     return palettes.find((palette) => palette.id === id);
   };
@@ -77,6 +87,7 @@ function App() {
             element={<SinglePaletteWrapper />}
           />
           <Route path="/palette/new" element={<NewPalette />} />
+          <Route path="*" element={<PaletteList />} />
         </Routes>
       </AnimatePresence>
     </ThemeProvider>

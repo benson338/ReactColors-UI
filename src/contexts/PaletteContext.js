@@ -1,7 +1,5 @@
 import { useState, createContext, useContext } from 'react';
 
-// const initialState = { level: 500, format: 'hex' };
-
 const PaletteContext = createContext();
 
 const PaletteProvider = ({ children }) => {

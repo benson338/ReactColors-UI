@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useGlobalContext } from '../contexts/GlobalContext';
-import { useSortable } from '@dnd-kit/sortable';
+import chroma from 'chroma-js';
 import { CSS } from '@dnd-kit/utilities';
+import { useSortable } from '@dnd-kit/sortable';
+import { useGlobalContext } from '../contexts/GlobalContext';
 import sizes from '../helpers/sizes';
 
 function DraggableColorbox({ color, name, id }) {
@@ -10,6 +11,8 @@ function DraggableColorbox({ color, name, id }) {
 
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: id });
+
+  const isDarkColor = chroma(color).luminance() <= 0.1;
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -22,7 +25,7 @@ function DraggableColorbox({ color, name, id }) {
 
   return (
     <Root
-      color={color}
+      props={{ color, isDarkColor }}
       ref={setNodeRef}
       style={style}
       {...attributes}
@@ -35,6 +38,7 @@ function DraggableColorbox({ color, name, id }) {
           onClick={() => {
             deleteColor(name);
           }}
+          sx={{ color: 'rgba(0, 0, 0, 0.5)' }}
         />
       </div>
     </Root>
@@ -42,7 +46,7 @@ function DraggableColorbox({ color, name, id }) {
 }
 
 const Root = styled.div`
-  background: ${(props) => props.color};
+  background: ${({ props }) => props.color};
   height: 25%;
   width: 20%;
   margin: 0 auto;
@@ -71,15 +75,15 @@ const Root = styled.div`
   }
 
   .boxContent {
+    color: ${({ props }) =>
+      props.isDarkColor ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'};
     position: absolute;
     width: 100%;
     left: 0;
     bottom: 0;
     padding: 10px;
-    color: black;
     letter-spacing: 1px;
     font-size: 12px;
-    color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: space-between;
 

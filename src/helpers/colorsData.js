@@ -5,6 +5,7 @@ const colorsData = [
     paletteName: 'Material UI Colors',
     id: 'material-ui-colors',
     emoji: '🎨',
+    inBuilt: true,
     colors: [
       { name: 'red', color: '#F44336', id: 12345 },
       { name: 'pink', color: '#E91E63', id: 12346 },
@@ -31,6 +32,7 @@ const colorsData = [
     paletteName: 'Flat UI Colors v1',
     id: 'flat-ui-colors-v1',
     emoji: '🤙',
+    inBuilt: true,
     colors: [
       { name: 'Turquoise', color: '#1abc9c', id: 1234563 },
       { name: 'Emerald', color: '#2ecc71', id: 1234564 },
@@ -58,6 +60,7 @@ const colorsData = [
     paletteName: 'Flat UI Colors Dutch',
     id: 'flat-ui-colors-dutch',
     emoji: '🇳🇱',
+    inBuilt: true,
     colors: [
       { name: 'Sunflower', color: '#FFC312', id: 161 },
       { name: 'Energos', color: '#C4E538', id: 162 },
@@ -85,6 +88,7 @@ const colorsData = [
     paletteName: 'Flat UI Colors American',
     id: 'flat-ui-colors-american',
     emoji: '🇺🇸',
+    inBuilt: true,
     colors: [
       { name: 'LightGreenishBlue', color: '#55efc4', id: 171 },
       { name: 'FadedPoster', color: '#81ecec', id: 172 },
@@ -112,6 +116,7 @@ const colorsData = [
     paletteName: 'Flat UI Colors Aussie',
     id: 'flat-ui-colors-aussie',
     emoji: '🇦🇺',
+    inBuilt: true,
     colors: [
       { name: 'Beekeeper', color: '#f6e58d', id: 181 },
       { name: 'SpicedNectarine', color: '#ffbe76', id: 182 },
@@ -139,6 +144,7 @@ const colorsData = [
     paletteName: 'Flat UI Colors British',
     id: 'flat-ui-colors-british',
     emoji: '🇬🇧',
+    inBuilt: true,
     colors: [
       { name: 'ProtossPylon', color: '#00a8ff', id: 190 },
       { name: 'Periwinkle', color: '#9c88ff', id: 191 },
@@ -160,6 +166,34 @@ const colorsData = [
       { name: 'ChainGangGrey', color: '#718093', id: 1997 },
       { name: 'PicoVoid', color: '#192a56', id: 1998 },
       { name: 'ElectroMagnetic', color: '#2f3640', id: 1999 },
+    ],
+  },
+  {
+    paletteName: 'Flat UI Colors Indian',
+    id: 'flat-ui-colors-indian',
+    emoji: '🇮🇳',
+    inBuilt: true,
+    colors: [
+      { name: 'OrchidOrange', color: '#FEA47F', id: 1210 },
+      { name: 'SpiroDiscoBall', color: '#25CCF7', id: 1211 },
+      { name: 'HoneyGlow', color: '#EAB543', id: 1212 },
+      { name: 'SweetGarden', color: '#55E6C1', id: 1213 },
+      { name: 'FallingStar', color: '#CAD3C8', id: 1214 },
+      { name: 'RichGardenia', color: '#F97F51', id: 1215 },
+      { name: 'ClearChill', color: '#1B9CFC', id: 1216 },
+      { name: 'WhitePepper', color: '#F8EFBA', id: 1217 },
+      { name: 'Keppel', color: '#58B19F', id: 1218 },
+      { name: 'ShipsOfficer', color: '#2C3A47', id: 1219 },
+      { name: 'FieryFuchsia', color: '#B33771', id: 12191 },
+      { name: 'BlueBell', color: '#3B3B98', id: 12192 },
+      { name: 'GeorgiaPeach', color: '#FD7272', id: 12193 },
+      { name: 'OasisStream', color: '#9AECDB', id: 12194 },
+      { name: 'BrightUbe', color: '#D6A2E8', id: 12195 },
+      { name: 'MagentaPurple', color: '#6D214F', id: 12196 },
+      { name: 'EndingNavyBlue', color: '#182C61', id: 12197 },
+      { name: 'SasquatchSocks', color: '#FC427B', id: 12198 },
+      { name: 'PineGlade', color: '#BDC581', id: 12198 },
+      { name: 'HighlighterLavender', color: '#82589F', id: 12199 },
     ],
   },
   {
@@ -190,33 +224,6 @@ const colorsData = [
     ],
   },
   {
-    paletteName: 'Flat UI Colors Indian',
-    id: 'flat-ui-colors-indian',
-    emoji: '🇮🇳',
-    colors: [
-      { name: 'OrchidOrange', color: '#FEA47F', id: 1210 },
-      { name: 'SpiroDiscoBall', color: '#25CCF7', id: 1211 },
-      { name: 'HoneyGlow', color: '#EAB543', id: 1212 },
-      { name: 'SweetGarden', color: '#55E6C1', id: 1213 },
-      { name: 'FallingStar', color: '#CAD3C8', id: 1214 },
-      { name: 'RichGardenia', color: '#F97F51', id: 1215 },
-      { name: 'ClearChill', color: '#1B9CFC', id: 1216 },
-      { name: 'WhitePepper', color: '#F8EFBA', id: 1217 },
-      { name: 'Keppel', color: '#58B19F', id: 1218 },
-      { name: 'ShipsOfficer', color: '#2C3A47', id: 1219 },
-      { name: 'FieryFuchsia', color: '#B33771', id: 12191 },
-      { name: 'BlueBell', color: '#3B3B98', id: 12192 },
-      { name: 'GeorgiaPeach', color: '#FD7272', id: 12193 },
-      { name: 'OasisStream', color: '#9AECDB', id: 12194 },
-      { name: 'BrightUbe', color: '#D6A2E8', id: 12195 },
-      { name: 'MagentaPurple', color: '#6D214F', id: 12196 },
-      { name: 'EndingNavyBlue', color: '#182C61', id: 12197 },
-      { name: 'SasquatchSocks', color: '#FC427B', id: 12198 },
-      { name: 'PineGlade', color: '#BDC581', id: 12198 },
-      { name: 'HighlighterLavender', color: '#82589F', id: 12199 },
-    ],
-  },
-  {
     paletteName: 'Flat UI Colors French',
     id: 'flat-ui-colors-french',
     emoji: '🇫🇷',
@@ -244,7 +251,6 @@ const colorsData = [
     ],
   },
 ];
-
 // added id manually for checking randomColor generation bug (duplicate key , id) => key error✅
 
 colorsData.forEach((palette) => {

@@ -1,10 +1,11 @@
+import { memo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../contexts/GlobalContext';
 import sizes from '../helpers/sizes';
 
-function MiniPalette({ paletteName, emoji, colors, id }) {
+function MiniPalette({ paletteName, emoji, colors, id, inBuilt }) {
   const { setDeleteState } = useGlobalContext();
 
   let navigate = useNavigate();
@@ -16,7 +17,6 @@ function MiniPalette({ paletteName, emoji, colors, id }) {
   const deletePalette = (e) => {
     e.stopPropagation();
     // setPalettes((palettes) => palettes.filter((palette) => palette.id !== id));
-    // setDeleteOpen(true);
     setDeleteState({ open: true, id: id });
   };
 
@@ -30,7 +30,9 @@ function MiniPalette({ paletteName, emoji, colors, id }) {
 
   return (
     <Root onClick={handleClick}>
-      <DeleteIcon className="deleteIcon" onClick={deletePalette} />
+      {!inBuilt && (
+        <DeleteIcon className="deleteIcon" onClick={deletePalette} />
+      )}
       <div className="colors">{miniColorBoxes}</div>
       <h5 className="title">
         {paletteName} <span className="emoji">{emoji}</span>
@@ -48,7 +50,7 @@ const Root = styled.div`
   // overflow: hidden;
   cursor: pointer;
   :hover {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.85);
   }
   :hover .deleteIcon {
     opacity: 1;
@@ -124,4 +126,4 @@ const Root = styled.div`
   }
 `;
 
-export default MiniPalette;
+export default memo(MiniPalette);
