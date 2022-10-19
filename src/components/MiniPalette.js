@@ -118,7 +118,7 @@ const Root = styled.div`
     // padding-top: 0.5rem;
     position: relative;
     font-size: 0.9rem;
-    font-family: Roboto;
+    // font-family: Roboto;
 
     .emoji {
       margin-left: 0.5rem;
